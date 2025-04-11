@@ -428,3 +428,6 @@ WARNING 2025-04-11 17:46:09,041 runserver [31;1mHTTP POST /api/v1/auth/login/ 4
 INFO 2025-04-11 17:46:15,933 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.00, 127.0.0.1:64783][0m
 INFO 2025-04-11 17:46:16,072 runserver [mHTTP POST /api/v1/auth/login/ 200 [0.14, 127.0.0.1:64783][0m
 WARNING 2025-04-11 17:46:30,624 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.04, 127.0.0.1:64855][0m
+WARNING 2025-04-11 17:51:34,612 runserver [31;1mHTTP GET /api/v1/auth/login/ 405 [0.05, 127.0.0.1:65002][0m
+WARNING 2025-04-11 17:51:36,246 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.03, 127.0.0.1:65002][0m
+WARNING 2025-04-11 17:52:05,749 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.04, 127.0.0.1:65028][0m
