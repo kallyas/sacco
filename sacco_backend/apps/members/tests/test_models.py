@@ -9,7 +9,8 @@ User = get_user_model()
 class MemberModelTest(TestCase):
     def setUp(self):
         self.user = User.objects.create(
-            username='testuser',
+            first_name='Test',
+            last_name='User',
             password='testpass123'
         )
 
