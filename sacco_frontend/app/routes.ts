@@ -12,4 +12,6 @@ export default [
     route("setup", "routes/setup.tsx"),
   ]),
   route("login", "routes/login.tsx"),
+  route("forgot-password", "routes/forgot-password.tsx"),
+  route("reset-password", "routes/reset-password.tsx"),
 ] satisfies RouteConfig;
