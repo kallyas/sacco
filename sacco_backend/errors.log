@@ -1,0 +1,497 @@
+ERROR 2025-01-02 03:32:24,959 log Internal Server Error: /admin
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/urls/base.py", line 71, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+KeyError: 'djdt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/debug_toolbar/middleware.py", line 97, in __call__
+    rendered = toolbar.render_toolbar()
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/debug_toolbar/toolbar.py", line 84, in render_toolbar
+    return render_to_string("debug_toolbar/base.html", context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/test/utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/urls/base.py", line 82, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'djdt' is not a registered namespace
+ERROR 2025-01-02 03:32:25,082 log Internal Server Error: /favicon.ico
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/urls/base.py", line 71, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+KeyError: 'djdt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/debug_toolbar/middleware.py", line 97, in __call__
+    rendered = toolbar.render_toolbar()
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/debug_toolbar/toolbar.py", line 84, in render_toolbar
+    return render_to_string("debug_toolbar/base.html", context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/test/utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/urls/base.py", line 82, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'djdt' is not a registered namespace
+ERROR 2025-01-02 04:06:07,397 log Internal Server Error: /api/v1/ussd/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 254, in __call__
+    return call_result.result()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 331, in main_wrap
+    result = await self.awaitable(*args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 60, in _view_wrapper
+    return await view_func(request, *args, **kwargs)
+TypeError: object Response can't be used in 'await' expression
+ERROR 2025-01-02 04:08:54,314 log Internal Server Error: /api/v1/ussd/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 254, in __call__
+    return call_result.result()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 331, in main_wrap
+    result = await self.awaitable(*args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 60, in _view_wrapper
+    return await view_func(request, *args, **kwargs)
+TypeError: object Response can't be used in 'await' expression
+ERROR 2025-01-02 04:11:46,263 log Internal Server Error: /api/v1/ussd/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 60, in _view_wrapper
+    return await view_func(request, *args, **kwargs)
+TypeError: object Response can't be used in 'await' expression
+ERROR 2025-01-02 04:11:47,351 log Internal Server Error: /api/v1/ussd/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 60, in _view_wrapper
+    return await view_func(request, *args, **kwargs)
+TypeError: object Response can't be used in 'await' expression
+ERROR 2025-01-02 04:15:56,518 log Internal Server Error: /api/v1/ussd/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 60, in _view_wrapper
+    return await view_func(request, *args, **kwargs)
+TypeError: object Response can't be used in 'await' expression
+ERROR 2025-01-02 04:15:57,817 log Internal Server Error: /api/v1/ussd/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 60, in _view_wrapper
+    return await view_func(request, *args, **kwargs)
+TypeError: object Response can't be used in 'await' expression
+ERROR 2025-01-02 04:23:54,527 log Internal Server Error: /api/v1/ussd/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 60, in _view_wrapper
+    return await view_func(request, *args, **kwargs)
+TypeError: object Response can't be used in 'await' expression
+ERROR 2025-01-02 04:24:01,037 log Internal Server Error: /api/v1/ussd/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 60, in _view_wrapper
+    return await view_func(request, *args, **kwargs)
+TypeError: object Response can't be used in 'await' expression
+ERROR 2025-01-02 14:54:59,029 log Internal Server Error: /api/v1/loans/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/current_thread_executor.py", line 40, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/mixins.py", line 38, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/loans/views.py", line 16, in get_queryset
+    if self.request.user.role.name == 'LOAN_OFFICER':
+AttributeError: 'AnonymousUser' object has no attribute 'role'
+ERROR 2025-01-02 14:55:45,985 log Internal Server Error: /api/v1/loans/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/current_thread_executor.py", line 40, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/mixins.py", line 38, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/loans/views.py", line 16, in get_queryset
+    if self.request.user.role.name != 'LOAN_OFFICER':
+AttributeError: 'AnonymousUser' object has no attribute 'role'
+ERROR 2025-01-02 14:57:49,416 log Internal Server Error: /api/v1/loans/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/current_thread_executor.py", line 40, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/mixins.py", line 38, in list
+    queryset = self.filter_queryset(self.get_queryset())
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/loans/views.py", line 16, in get_queryset
+    if self.request.user.role.name == 'LOAN_OFFICER':
+AttributeError: 'AnonymousUser' object has no attribute 'role'
+ERROR 2025-01-08 17:31:02,726 log Internal Server Error: /api/v1/auth/login/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/current_thread_executor.py", line 40, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/views.py", line 70, in login
+    tokens = AuthenticationService.generate_tokens(user)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/services/auth_service.py", line 16, in generate_tokens
+    access_token = jwt.encode(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/jwt/jwt.py", line 51, in encode
+    raise TypeError(
+TypeError: key must be an instance of a class implements jwt.AbstractJWKBase
+ERROR 2025-01-08 17:38:18,603 log Internal Server Error: /api/v1/auth/login/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/current_thread_executor.py", line 40, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/views.py", line 70, in login
+    tokens = AuthenticationService.generate_tokens(user)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/services/auth_service.py", line 15, in generate_tokens
+    access_token = jwt.encode(
+AttributeError: module 'jwt' has no attribute 'encode'
+ERROR 2025-01-08 17:41:38,185 log Internal Server Error: /api/v1/auth/login/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/current_thread_executor.py", line 40, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/views.py", line 70, in login
+    tokens = AuthenticationService.generate_tokens(user)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/services/auth_service.py", line 15, in generate_tokens
+    access_token = jwt.encode(
+AttributeError: module 'jwt' has no attribute 'encode'
+ERROR 2025-01-08 17:42:07,918 log Internal Server Error: /api/v1/auth/login/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/current_thread_executor.py", line 40, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/views.py", line 70, in login
+    tokens = AuthenticationService.generate_tokens(user)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/services/auth_service.py", line 15, in generate_tokens
+    access_token = jwt.encode(
+TypeError: PyJWT.encode() got an unexpected keyword argument 'alg'
+ERROR 2025-01-08 17:43:28,679 log Internal Server Error: /api/v1/auth/login/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/current_thread_executor.py", line 40, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/views.py", line 72, in login
+    'user': UserSerializer(user).data,
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 571, in data
+    ret = super().data
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 523, in to_representation
+    for field in fields:
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `username` is not valid for model `User` in `apps.authentication.serializers.UserSerializer`.
+ERROR 2025-01-08 17:44:49,767 log Internal Server Error: /api/v1/auth/login/
+Traceback (most recent call last):
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/current_thread_executor.py", line 40, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/views.py", line 72, in login
+    'user': UserSerializer(user).data,
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 571, in data
+    ret = super().data
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 523, in to_representation
+    for field in fields:
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 384, in _readable_fields
+    for field in self.fields.values():
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 1103, in get_fields
+    field_class, field_kwargs = self.build_field(
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 1249, in build_field
+    return self.build_unknown_field(field_name, model_class)
+  File "/Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/rest_framework/serializers.py", line 1367, in build_unknown_field
+    raise ImproperlyConfigured(
+django.core.exceptions.ImproperlyConfigured: Field name `first_name` is not valid for model `User` in `apps.authentication.serializers.UserSerializer`.
