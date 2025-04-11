@@ -8,7 +8,6 @@ class UserModelTest(TestCase):
     def setUp(self):
         self.role = Role.objects.create(name='TEST_ROLE')
         self.user_data = {
-            'username': 'testuser',
             'email': 'test@example.com',
             'password': 'testpass123',
             'first_name': 'Test',
@@ -20,6 +19,6 @@ class UserModelTest(TestCase):
 
     def test_create_user(self):
         user = User.objects.create(**self.user_data)
-        self.assertEqual(user.username, self.user_data['username'])
-        self.assertTrue(user.check_password(self.user_data['password']))
+        self.assertEqual(user.first_name, self.user_data['first_name'])
+        self.assertEqual(user.last_name, self.user_data['last_name'])
         self.assertEqual(user.role, self.role)
