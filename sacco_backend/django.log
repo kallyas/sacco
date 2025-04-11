@@ -1,0 +1,386 @@
+INFO 2024-12-30 18:55:43,727 autoreload Watching for file changes with StatReloader
+ERROR 2024-12-30 18:56:30,724 basehttp "GET /admin HTTP/1.1" 500 59
+ERROR 2024-12-30 18:56:30,827 basehttp "GET /favicon.ico HTTP/1.1" 500 59
+ERROR 2024-12-30 18:56:35,205 basehttp "GET / HTTP/1.1" 500 59
+ERROR 2024-12-30 18:56:35,233 basehttp "GET /favicon.ico HTTP/1.1" 500 59
+INFO 2024-12-30 18:57:47,576 autoreload Watching for file changes with StatReloader
+ERROR 2024-12-30 18:57:59,837 basehttp "GET / HTTP/1.1" 500 59
+ERROR 2024-12-30 18:57:59,882 basehttp "GET /favicon.ico HTTP/1.1" 500 59
+ERROR 2024-12-30 18:58:00,924 basehttp "GET / HTTP/1.1" 500 59
+ERROR 2024-12-30 18:58:00,953 basehttp "GET /favicon.ico HTTP/1.1" 500 59
+ERROR 2024-12-30 18:58:02,306 basehttp "GET / HTTP/1.1" 500 59
+ERROR 2024-12-30 18:58:02,336 basehttp "GET /favicon.ico HTTP/1.1" 500 59
+INFO 2024-12-30 19:00:19,000 autoreload Watching for file changes with StatReloader
+ERROR 2024-12-30 19:00:23,130 basehttp "GET / HTTP/1.1" 500 59
+ERROR 2024-12-30 19:00:23,163 basehttp "GET /favicon.ico HTTP/1.1" 500 59
+INFO 2024-12-30 19:03:53,270 autoreload Watching for file changes with StatReloader
+ERROR 2024-12-30 19:04:19,289 basehttp "GET / HTTP/1.1" 500 59
+ERROR 2024-12-30 19:04:19,325 basehttp "GET /favicon.ico HTTP/1.1" 500 59
+ERROR 2024-12-30 19:04:20,308 basehttp "GET / HTTP/1.1" 500 59
+ERROR 2024-12-30 19:04:20,339 basehttp "GET /favicon.ico HTTP/1.1" 500 59
+INFO 2024-12-31 04:06:17,493 autoreload Watching for file changes with StatReloader
+INFO 2024-12-31 04:07:28,595 autoreload Watching for file changes with StatReloader
+INFO 2024-12-31 04:08:29,441 autoreload Watching for file changes with StatReloader
+INFO 2024-12-31 04:09:35,193 autoreload Watching for file changes with StatReloader
+INFO 2024-12-31 04:09:51,770 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:19:36,931 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:30:28,167 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:32:08,158 autoreload Watching for file changes with StatReloader
+ERROR 2025-01-02 03:32:24,960 basehttp "GET /admin HTTP/1.1" 500 138144
+ERROR 2025-01-02 03:32:25,084 basehttp "GET /favicon.ico HTTP/1.1" 500 138007
+INFO 2025-01-02 03:33:54,377 autoreload /Users/tum/programming/personal/sacco/sacco_backend/core/urls.py changed, reloading.
+INFO 2025-01-02 03:33:55,060 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:34:35,397 autoreload /Users/tum/programming/personal/sacco/sacco_backend/core/urls.py changed, reloading.
+INFO 2025-01-02 03:34:36,058 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:34:36,763 basehttp "GET /admin HTTP/1.1" 301 0
+INFO 2025-01-02 03:34:36,777 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-01-02 03:34:36,796 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 17698
+INFO 2025-01-02 03:34:36,814 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22092
+INFO 2025-01-02 03:34:36,822 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2804
+INFO 2025-01-02 03:34:36,824 basehttp "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-01-02 03:34:36,825 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-01-02 03:34:36,827 basehttp "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 200 14601
+INFO 2025-01-02 03:34:36,827 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 17972
+INFO 2025-01-02 03:34:36,827 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-01-02 03:34:36,828 basehttp "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 200 16675
+INFO 2025-01-02 03:34:36,831 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-01-02 03:34:36,834 basehttp "GET /static/debug_toolbar/css/print.css HTTP/1.1" 200 43
+INFO 2025-01-02 03:34:36,847 basehttp "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 200 4742
+WARNING 2025-01-02 03:34:36,876 basehttp "GET /favicon.ico HTTP/1.1" 404 15851
+INFO 2025-01-02 03:34:48,538 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 200 17870
+INFO 2025-01-02 03:35:55,390 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 200 17871
+INFO 2025-01-02 03:36:03,855 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-01-02 03:36:03,915 basehttp "GET /admin/ HTTP/1.1" 200 24387
+INFO 2025-01-02 03:36:03,945 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-01-02 03:36:03,945 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-01-02 03:36:03,946 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-01-02 03:38:01,069 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/models.py changed, reloading.
+INFO 2025-01-02 03:38:02,072 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:42:33,538 autoreload /Users/tum/programming/personal/sacco/sacco_backend/core/urls.py changed, reloading.
+INFO 2025-01-02 03:42:34,425 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:43:13,495 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:44:13,428 autoreload /Users/tum/programming/personal/sacco/sacco_backend/venv/lib/python3.10/site-packages/jwt/utils.py changed, reloading.
+INFO 2025-01-02 03:44:14,003 autoreload Watching for file changes with StatReloader
+WARNING 2025-01-02 03:44:17,714 basehttp "GET /api HTTP/1.1" 404 15971
+INFO 2025-01-02 03:44:17,748 basehttp "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
+INFO 2025-01-02 03:44:17,759 basehttp "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
+INFO 2025-01-02 03:44:17,764 basehttp "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+INFO 2025-01-02 03:44:17,864 basehttp "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 304 0
+INFO 2025-01-02 03:44:18,584 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/services/auth_service.py changed, reloading.
+INFO 2025-01-02 03:44:19,223 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:44:43,622 basehttp "GET /api/v1 HTTP/1.1" 301 0
+WARNING 2025-01-02 03:44:43,648 basehttp "GET /api/v1/ HTTP/1.1" 401 18554
+INFO 2025-01-02 03:44:43,699 basehttp "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+INFO 2025-01-02 03:44:43,700 basehttp "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1152
+INFO 2025-01-02 03:44:43,700 basehttp "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3426
+INFO 2025-01-02 03:44:43,701 basehttp "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3796
+INFO 2025-01-02 03:44:43,703 basehttp "GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1793
+INFO 2025-01-02 03:44:43,703 basehttp "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+INFO 2025-01-02 03:44:43,705 basehttp "GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+INFO 2025-01-02 03:44:43,706 basehttp "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+INFO 2025-01-02 03:44:43,708 basehttp "GET /static/rest_framework/js/load-ajax-form.js HTTP/1.1" 200 59
+INFO 2025-01-02 03:44:43,709 basehttp "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 39680
+INFO 2025-01-02 03:44:43,710 basehttp "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+INFO 2025-01-02 03:44:43,711 basehttp "GET /static/rest_framework/js/jquery-3.7.1.min.js HTTP/1.1" 200 87533
+WARNING 2025-01-02 03:44:50,953 basehttp "GET /api/v1/ HTTP/1.1" 401 18554
+WARNING 2025-01-02 03:47:32,349 basehttp "GET /api/v1/ussd HTTP/1.1" 404 21993
+INFO 2025-01-02 03:47:46,179 autoreload /Users/tum/programming/personal/sacco/sacco_backend/core/urls.py changed, reloading.
+INFO 2025-01-02 03:47:46,914 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:48:25,309 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:48:34,753 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:49:36,469 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:50:23,585 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:50:55,391 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:54:19,135 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:54:54,403 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/risk_management/services/fraud_detection_service.py changed, reloading.
+INFO 2025-01-02 03:54:55,098 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 03:56:11,878 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 04:01:05,187 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 04:01:34,308 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 04:05:08,579 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 04:06:03,008 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 04:06:07,380 basehttp "GET /api/v1/ussd HTTP/1.1" 301 0
+ERROR 2025-01-02 04:06:07,414 basehttp "GET /api/v1/ussd/ HTTP/1.1" 500 89713
+INFO 2025-01-02 04:06:07,432 basehttp "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 304 0
+INFO 2025-01-02 04:06:07,442 basehttp "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 304 0
+INFO 2025-01-02 04:06:07,452 basehttp "GET /static/debug_toolbar/css/print.css HTTP/1.1" 304 0
+INFO 2025-01-02 04:06:07,505 basehttp "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 304 0
+INFO 2025-01-02 04:08:45,009 autoreload Watching for file changes with StatReloader
+ERROR 2025-01-02 04:08:54,341 basehttp "GET /api/v1/ussd/ HTTP/1.1" 500 89713
+INFO 2025-01-02 04:10:59,348 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 04:11:37,527 autoreload Watching for file changes with StatReloader
+ERROR 2025-01-02 04:11:46,299 runserver HTTP GET /api/v1/ussd/ 500 [0.06, 127.0.0.1:56533]
+INFO 2025-01-02 04:11:46,329 runserver HTTP GET /static/debug_toolbar/js/timer.js 200 [0.00, 127.0.0.1:56533]
+ERROR 2025-01-02 04:11:47,368 runserver HTTP GET /api/v1/ussd/ 500 [0.03, 127.0.0.1:56533]
+INFO 2025-01-02 04:15:54,104 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/integrations/views.py changed, reloading.
+INFO 2025-01-02 04:15:55,224 autoreload Watching for file changes with StatReloader
+ERROR 2025-01-02 04:15:56,564 runserver HTTP GET /api/v1/ussd/ 500 [0.08, 127.0.0.1:56624]
+INFO 2025-01-02 04:15:56,611 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:56624]
+INFO 2025-01-02 04:15:56,612 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:56626]
+INFO 2025-01-02 04:15:56,612 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:56628]
+INFO 2025-01-02 04:15:56,618 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:56628]
+ERROR 2025-01-02 04:15:57,847 runserver HTTP GET /api/v1/ussd/ 500 [0.06, 127.0.0.1:56631]
+INFO 2025-01-02 04:15:57,872 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:56631]
+INFO 2025-01-02 04:15:57,874 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:56635]
+INFO 2025-01-02 04:15:57,874 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:56633]
+INFO 2025-01-02 04:15:57,886 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:56633]
+INFO 2025-01-02 04:20:55,321 autoreload /Users/tum/programming/personal/sacco/sacco_backend/integrations/ussd/services/ussd_service.py changed, reloading.
+INFO 2025-01-02 04:20:56,326 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 04:23:51,920 autoreload /Users/tum/programming/personal/sacco/sacco_backend/integrations/ussd/services/ussd_service.py changed, reloading.
+INFO 2025-01-02 04:23:52,990 autoreload Watching for file changes with StatReloader
+ERROR 2025-01-02 04:23:54,555 runserver HTTP GET /api/v1/ussd/ 500 [0.04, 127.0.0.1:56720]
+INFO 2025-01-02 04:23:54,600 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:56720]
+INFO 2025-01-02 04:23:54,601 runserver HTTP GET /static/debug_toolbar/js/timer.js 304 [0.00, 127.0.0.1:56724]
+INFO 2025-01-02 04:23:54,601 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:56722]
+INFO 2025-01-02 04:23:54,612 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:56722]
+INFO 2025-01-02 04:23:54,633 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:56722]
+ERROR 2025-01-02 04:24:01,072 runserver HTTP GET /api/v1/ussd/ 500 [0.06, 127.0.0.1:56731]
+INFO 2025-01-02 04:24:01,103 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.01, 127.0.0.1:56731]
+INFO 2025-01-02 04:24:01,105 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:56735]
+INFO 2025-01-02 04:24:01,105 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.01, 127.0.0.1:56733]
+INFO 2025-01-02 04:24:01,119 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:56733]
+INFO 2025-01-02 04:24:26,716 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/integrations/views.py changed, reloading.
+INFO 2025-01-02 04:24:27,631 autoreload Watching for file changes with StatReloader
+WARNING 2025-01-02 04:24:28,950 runserver HTTP GET /api/v1/ussd/ 401 [0.06, 127.0.0.1:56758]
+INFO 2025-01-02 04:24:28,979 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:56758]
+INFO 2025-01-02 04:24:28,980 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:56760]
+INFO 2025-01-02 04:24:29,016 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:56760]
+INFO 2025-01-02 04:24:29,017 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:56758]
+INFO 2025-01-02 04:26:35,940 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/integrations/views.py changed, reloading.
+INFO 2025-01-02 04:26:36,896 autoreload Watching for file changes with StatReloader
+WARNING 2025-01-02 04:26:37,241 runserver HTTP GET /api/v1/ussd/ 405 [0.04, 127.0.0.1:56814]
+INFO 2025-01-02 04:26:37,266 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:56814]
+INFO 2025-01-02 04:26:37,266 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:56816]
+INFO 2025-01-02 04:26:37,272 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:56816]
+INFO 2025-01-02 04:26:37,276 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:56816]
+INFO 2025-01-02 04:27:24,139 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/integrations/views.py changed, reloading.
+INFO 2025-01-02 04:27:24,873 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 04:27:29,024 runserver HTTP POST /api/v1/ussd/ 200 [0.10, 127.0.0.1:56839]
+INFO 2025-01-02 04:28:19,058 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/integrations/views.py changed, reloading.
+INFO 2025-01-02 04:28:19,791 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 04:28:25,652 runserver HTTP POST /api/v1/ussd/ 200 [0.10, 127.0.0.1:56862]
+INFO 2025-01-02 04:29:01,763 runserver HTTP POST /api/v1/ussd/ 200 [0.02, 127.0.0.1:56874]
+INFO 2025-01-02 04:30:08,907 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 04:30:13,054 runserver HTTP POST /api/v1/ussd/ 200 [0.11, 127.0.0.1:56903]
+INFO 2025-01-02 04:30:53,089 runserver HTTP POST /api/v1/ussd/ 200 [0.02, 127.0.0.1:56918]
+INFO 2025-01-02 14:52:37,823 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 14:52:45,972 runserver HTTP GET /admin 301 [0.05, 127.0.0.1:50064]
+INFO 2025-01-02 14:52:46,098 runserver HTTP GET /admin/ 200 [0.12, 127.0.0.1:50064]
+INFO 2025-01-02 14:52:46,154 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.01, 127.0.0.1:50064]
+INFO 2025-01-02 14:52:46,155 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:50067]
+INFO 2025-01-02 14:52:46,155 runserver HTTP GET /static/debug_toolbar/js/timer.js 304 [0.00, 127.0.0.1:50068]
+INFO 2025-01-02 14:52:46,171 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50068]
+INFO 2025-01-02 14:52:46,311 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.01, 127.0.0.1:50068]
+WARNING 2025-01-02 14:52:46,362 runserver HTTP GET /favicon.ico 404 [0.02, 127.0.0.1:50068]
+WARNING 2025-01-02 14:52:50,394 runserver HTTP GET /api/v1/ 401 [0.03, 127.0.0.1:50070]
+INFO 2025-01-02 14:52:50,427 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:50070]
+INFO 2025-01-02 14:52:50,429 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50072]
+INFO 2025-01-02 14:52:50,453 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50072]
+INFO 2025-01-02 14:52:50,454 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50070]
+INFO 2025-01-02 14:52:57,285 runserver HTTP GET /api/v1/loans 301 [0.04, 127.0.0.1:50074]
+WARNING 2025-01-02 14:52:57,313 runserver HTTP GET /api/v1/loans/ 401 [0.01, 127.0.0.1:50074]
+INFO 2025-01-02 14:52:57,339 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:50074]
+INFO 2025-01-02 14:52:57,340 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50076]
+INFO 2025-01-02 14:52:57,396 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.05, 127.0.0.1:50076]
+INFO 2025-01-02 14:52:57,396 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50074]
+INFO 2025-01-02 14:53:53,377 autoreload /Users/tum/programming/personal/sacco/sacco_backend/core/urls.py changed, reloading.
+INFO 2025-01-02 14:53:54,338 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 14:54:04,006 autoreload /Users/tum/programming/personal/sacco/sacco_backend/core/urls.py changed, reloading.
+INFO 2025-01-02 14:54:04,781 autoreload Watching for file changes with StatReloader
+WARNING 2025-01-02 14:54:09,843 runserver HTTP GET /api/v1/loans/ 401 [0.06, 127.0.0.1:50087]
+INFO 2025-01-02 14:54:09,881 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.01, 127.0.0.1:50087]
+INFO 2025-01-02 14:54:09,884 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.01, 127.0.0.1:50089]
+INFO 2025-01-02 14:54:09,886 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50091]
+INFO 2025-01-02 14:54:09,889 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50091]
+INFO 2025-01-02 14:54:54,940 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/loans/views.py changed, reloading.
+INFO 2025-01-02 14:54:55,845 autoreload Watching for file changes with StatReloader
+ERROR 2025-01-02 14:54:59,074 runserver HTTP GET /api/v1/loans/ 500 [0.09, 127.0.0.1:50097]
+INFO 2025-01-02 14:54:59,143 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:50097]
+INFO 2025-01-02 14:54:59,144 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50099]
+INFO 2025-01-02 14:54:59,151 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50099]
+INFO 2025-01-02 14:54:59,175 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50099]
+INFO 2025-01-02 14:55:42,107 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/loans/views.py changed, reloading.
+INFO 2025-01-02 14:55:42,956 autoreload Watching for file changes with StatReloader
+ERROR 2025-01-02 14:55:46,027 runserver HTTP GET /api/v1/loans/ 500 [0.08, 127.0.0.1:50104]
+INFO 2025-01-02 14:55:46,078 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50106]
+INFO 2025-01-02 14:55:46,079 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:50104]
+INFO 2025-01-02 14:55:46,079 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50108]
+INFO 2025-01-02 14:55:46,093 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50108]
+INFO 2025-01-02 14:56:03,114 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/loans/views.py changed, reloading.
+INFO 2025-01-02 14:56:03,877 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 14:56:07,257 runserver HTTP GET /api/v1/loans/ 200 [0.16, 127.0.0.1:50117]
+INFO 2025-01-02 14:56:07,302 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:50117]
+INFO 2025-01-02 14:56:07,303 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50119]
+INFO 2025-01-02 14:56:07,315 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50119]
+INFO 2025-01-02 14:56:07,321 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50119]
+WARNING 2025-01-02 14:56:41,053 runserver HTTP POST /api/v1/loans/ 400 [0.05, 127.0.0.1:50123]
+INFO 2025-01-02 14:56:41,078 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:50123]
+INFO 2025-01-02 14:56:41,079 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50127]
+INFO 2025-01-02 14:56:41,081 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.01, 127.0.0.1:50125]
+INFO 2025-01-02 14:56:41,088 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50125]
+INFO 2025-01-02 14:57:07,230 runserver HTTP GET /api/v1/loans/ 200 [0.06, 127.0.0.1:50129]
+INFO 2025-01-02 14:57:07,265 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.01, 127.0.0.1:50129]
+INFO 2025-01-02 14:57:07,265 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50131]
+INFO 2025-01-02 14:57:07,270 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50131]
+INFO 2025-01-02 14:57:07,274 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50131]
+INFO 2025-01-02 14:57:12,038 runserver HTTP OPTIONS /api/v1/loans/ 200 [0.07, 127.0.0.1:50135]
+INFO 2025-01-02 14:57:34,317 runserver HTTP GET /api/v1/loans/ 200 [0.10, 127.0.0.1:50137]
+INFO 2025-01-02 14:57:34,350 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.01, 127.0.0.1:50137]
+INFO 2025-01-02 14:57:34,351 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50139]
+INFO 2025-01-02 14:57:34,355 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50137]
+INFO 2025-01-02 14:57:34,360 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50137]
+INFO 2025-01-02 14:57:45,798 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/loans/views.py changed, reloading.
+INFO 2025-01-02 14:57:46,661 autoreload Watching for file changes with StatReloader
+ERROR 2025-01-02 14:57:49,454 runserver HTTP GET /api/v1/loans/ 500 [0.07, 127.0.0.1:50149]
+INFO 2025-01-02 14:57:49,469 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:50149]
+INFO 2025-01-02 14:57:49,477 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50149]
+INFO 2025-01-02 14:57:49,493 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50149]
+INFO 2025-01-02 14:57:49,524 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50149]
+WARNING 2025-01-02 14:58:55,932 runserver HTTP GET /api/v1/members 404 [0.05, 127.0.0.1:50156]
+INFO 2025-01-02 14:58:55,973 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.01, 127.0.0.1:50156]
+INFO 2025-01-02 14:58:55,974 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:50159]
+INFO 2025-01-02 14:58:55,974 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50160]
+INFO 2025-01-02 14:58:55,985 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50160]
+INFO 2025-01-02 14:59:47,619 autoreload /Users/tum/programming/personal/sacco/sacco_backend/core/urls.py changed, reloading.
+INFO 2025-01-02 14:59:48,469 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 14:59:49,270 runserver HTTP GET /api/v1/members 301 [0.05, 127.0.0.1:50172]
+WARNING 2025-01-02 14:59:49,290 runserver HTTP GET /api/v1/members/ 401 [0.02, 127.0.0.1:50172]
+INFO 2025-01-02 14:59:49,317 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:50172]
+INFO 2025-01-02 14:59:49,318 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50174]
+INFO 2025-01-02 14:59:49,345 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50174]
+INFO 2025-01-02 14:59:49,346 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50172]
+WARNING 2025-01-02 14:59:56,025 runserver HTTP GET /api/v1/ 401 [0.04, 127.0.0.1:50176]
+INFO 2025-01-02 14:59:56,056 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50178]
+INFO 2025-01-02 14:59:56,056 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:50176]
+INFO 2025-01-02 14:59:56,060 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50178]
+INFO 2025-01-02 14:59:56,062 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50178]
+WARNING 2025-01-02 14:59:58,404 runserver HTTP GET /api/v1/members/ 401 [0.04, 127.0.0.1:50178]
+INFO 2025-01-02 17:41:31,177 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 18:30:08,060 autoreload Watching for file changes with StatReloader
+WARNING 2025-01-02 18:30:11,533 runserver HTTP GET /api/v1/ 401 [0.05, 127.0.0.1:50284]
+INFO 2025-01-02 18:30:11,593 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.01, 127.0.0.1:50284]
+INFO 2025-01-02 18:30:11,593 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50286]
+INFO 2025-01-02 18:30:11,594 runserver HTTP GET /static/debug_toolbar/js/timer.js 304 [0.00, 127.0.0.1:50288]
+INFO 2025-01-02 18:30:11,691 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50288]
+INFO 2025-01-02 18:30:11,695 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50288]
+WARNING 2025-01-02 18:30:24,821 runserver HTTP GET /api/v1/risk_assesment 404 [0.05, 127.0.0.1:50288]
+INFO 2025-01-02 18:30:24,853 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.01, 127.0.0.1:50288]
+INFO 2025-01-02 18:30:24,853 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50286]
+INFO 2025-01-02 18:30:24,853 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50284]
+INFO 2025-01-02 18:30:24,867 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50284]
+INFO 2025-01-02 18:31:56,870 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 18:32:17,436 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 19:04:08,352 autoreload /Users/tum/programming/personal/sacco/sacco_backend/core/urls.py changed, reloading.
+INFO 2025-01-02 19:04:09,348 autoreload Watching for file changes with StatReloader
+WARNING 2025-01-02 19:04:10,172 runserver HTTP GET /api/v1/risk_assesment 404 [0.07, 127.0.0.1:50657]
+INFO 2025-01-02 19:04:10,208 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.00, 127.0.0.1:50657]
+INFO 2025-01-02 19:04:10,209 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:50659]
+INFO 2025-01-02 19:04:10,217 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:50659]
+INFO 2025-01-02 19:04:10,231 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:50659]
+INFO 2025-01-02 19:14:47,120 autoreload /Users/tum/programming/personal/sacco/sacco_backend/shared/services/ledger_service.py changed, reloading.
+INFO 2025-01-02 19:14:48,070 autoreload Watching for file changes with StatReloader
+INFO 2025-01-02 19:22:51,957 autoreload /Users/tum/programming/personal/sacco/sacco_backend/core/urls.py changed, reloading.
+INFO 2025-01-02 19:22:53,042 autoreload Watching for file changes with StatReloader
+WARNING 2025-01-02 19:22:56,375 runserver HTTP GET /api/v1/risk_assesment 404 [0.06, 127.0.0.1:51136]
+INFO 2025-01-02 19:22:56,412 runserver HTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.01, 127.0.0.1:51136]
+INFO 2025-01-02 19:22:56,414 runserver HTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.00, 127.0.0.1:51138]
+INFO 2025-01-02 19:22:56,415 runserver HTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:51140]
+INFO 2025-01-02 19:22:56,430 runserver HTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 127.0.0.1:51140]
+INFO 2025-01-08 17:02:09,397 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:02:14,011 runserver [mHTTP OPTIONS /api/v1/auth/login 200 [0.00, 127.0.0.1:65169][0m
+INFO 2025-01-08 17:02:22,387 runserver [mHTTP OPTIONS /api/v1/auth/login 200 [0.01, 127.0.0.1:65205][0m
+INFO 2025-01-08 17:04:02,971 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:49347][0m
+WARNING 2025-01-08 17:04:06,137 runserver [31;1mHTTP GET /api/v1/auth/login/ 405 [0.11, 127.0.0.1:49362][0m
+INFO 2025-01-08 17:04:06,197 runserver [mHTTP GET /static/rest_framework/css/bootstrap.min.css 200 [0.00, 127.0.0.1:49362][0m
+INFO 2025-01-08 17:04:06,208 runserver [mHTTP GET /static/rest_framework/css/bootstrap-tweaks.css 200 [0.01, 127.0.0.1:49362][0m
+INFO 2025-01-08 17:04:06,209 runserver [mHTTP GET /static/rest_framework/css/default.css 200 [0.01, 127.0.0.1:49371][0m
+INFO 2025-01-08 17:04:06,211 runserver [mHTTP GET /static/rest_framework/css/prettify.css 200 [0.01, 127.0.0.1:49369][0m
+INFO 2025-01-08 17:04:06,211 runserver [mHTTP GET /static/rest_framework/js/ajax-form.js 200 [0.01, 127.0.0.1:49375][0m
+INFO 2025-01-08 17:04:06,212 runserver [mHTTP GET /static/rest_framework/js/jquery-3.7.1.min.js 200 [0.01, 127.0.0.1:49374][0m
+INFO 2025-01-08 17:04:06,214 runserver [mHTTP GET /static/rest_framework/js/csrf.js 200 [0.01, 127.0.0.1:49376][0m
+INFO 2025-01-08 17:04:06,219 runserver [mHTTP GET /static/rest_framework/js/bootstrap.min.js 200 [0.01, 127.0.0.1:49371][0m
+INFO 2025-01-08 17:04:06,219 runserver [mHTTP GET /static/rest_framework/js/default.js 200 [0.01, 127.0.0.1:49375][0m
+INFO 2025-01-08 17:04:06,220 runserver [mHTTP GET /static/rest_framework/js/prettify-min.js 200 [0.01, 127.0.0.1:49369][0m
+INFO 2025-01-08 17:04:06,220 runserver [mHTTP GET /static/rest_framework/js/load-ajax-form.js 200 [0.01, 127.0.0.1:49374][0m
+INFO 2025-01-08 17:04:06,220 runserver [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 127.0.0.1:49362][0m
+INFO 2025-01-08 17:04:06,220 runserver [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.00, 127.0.0.1:49376][0m
+INFO 2025-01-08 17:04:06,224 runserver [mHTTP GET /static/debug_toolbar/js/timer.js 200 [0.00, 127.0.0.1:49371][0m
+INFO 2025-01-08 17:04:06,226 runserver [mHTTP GET /static/rest_framework/img/grid.png 200 [0.00, 127.0.0.1:49371][0m
+INFO 2025-01-08 17:04:06,269 runserver [36mHTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 127.0.0.1:49371][0m
+INFO 2025-01-08 17:04:06,272 runserver [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 127.0.0.1:49371][0m
+WARNING 2025-01-08 17:04:06,394 runserver [33mHTTP GET /favicon.ico 404 [0.02, 127.0.0.1:49371][0m
+INFO 2025-01-08 17:04:49,783 autoreload /Users/tum/programming/personal/sacco/sacco_backend/core/settings/development.py changed, reloading.
+INFO 2025-01-08 17:04:51,085 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:04:54,061 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:05:00,820 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.00, 127.0.0.1:49617][0m
+WARNING 2025-01-08 17:05:00,889 runserver [31;1mHTTP POST /api/v1/auth/login/ 400 [0.06, 127.0.0.1:49617][0m
+INFO 2025-01-08 17:14:06,825 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.02, 127.0.0.1:51952][0m
+WARNING 2025-01-08 17:14:07,010 runserver [31;1mHTTP POST /api/v1/auth/login/ 401 [0.18, 127.0.0.1:51952][0m
+INFO 2025-01-08 17:15:51,617 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:52426][0m
+WARNING 2025-01-08 17:15:51,667 runserver [31;1mHTTP POST /api/v1/auth/login/ 401 [0.05, 127.0.0.1:52426][0m
+INFO 2025-01-08 17:16:53,549 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:52706][0m
+WARNING 2025-01-08 17:16:53,581 runserver [31;1mHTTP POST /api/v1/auth/login/ 401 [0.03, 127.0.0.1:52706][0m
+WARNING 2025-01-08 17:18:28,713 runserver [31;1mHTTP POST /api/v1/auth/login/ 400 [0.03, 127.0.0.1:53083][0m
+INFO 2025-01-08 17:21:19,304 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/models.py changed, reloading.
+INFO 2025-01-08 17:21:20,410 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:28:20,376 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:28:37,207 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:53358][0m
+WARNING 2025-01-08 17:28:37,262 runserver [31;1mHTTP POST /api/v1/auth/login/ 400 [0.05, 127.0.0.1:53358][0m
+INFO 2025-01-08 17:29:29,082 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/views.py changed, reloading.
+INFO 2025-01-08 17:29:29,795 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:29:33,538 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:53597][0m
+WARNING 2025-01-08 17:29:33,806 runserver [31;1mHTTP POST /api/v1/auth/login/ 401 [0.26, 127.0.0.1:53597][0m
+INFO 2025-01-08 17:30:06,749 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.00, 127.0.0.1:53758][0m
+WARNING 2025-01-08 17:30:06,789 runserver [31;1mHTTP POST /api/v1/auth/login/ 401 [0.04, 127.0.0.1:53758][0m
+INFO 2025-01-08 17:31:02,523 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:54007][0m
+ERROR 2025-01-08 17:31:03,318 runserver [35;1mHTTP POST /api/v1/auth/login/ 500 [0.79, 127.0.0.1:54007][0m
+INFO 2025-01-08 17:35:29,949 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/services/auth_service.py changed, reloading.
+INFO 2025-01-08 17:35:30,860 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:37:23,560 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/services/auth_service.py changed, reloading.
+INFO 2025-01-08 17:37:24,263 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:38:14,055 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/services/auth_service.py changed, reloading.
+INFO 2025-01-08 17:38:14,831 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:38:18,383 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.00, 127.0.0.1:55934][0m
+ERROR 2025-01-08 17:38:18,642 runserver [35;1mHTTP POST /api/v1/auth/login/ 500 [0.26, 127.0.0.1:55934][0m
+INFO 2025-01-08 17:41:38,027 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:56820][0m
+ERROR 2025-01-08 17:41:38,209 runserver [35;1mHTTP POST /api/v1/auth/login/ 500 [0.18, 127.0.0.1:56820][0m
+INFO 2025-01-08 17:42:02,618 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:42:07,704 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:56953][0m
+ERROR 2025-01-08 17:42:07,956 runserver [35;1mHTTP POST /api/v1/auth/login/ 500 [0.25, 127.0.0.1:56953][0m
+INFO 2025-01-08 17:43:13,416 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/services/auth_service.py changed, reloading.
+INFO 2025-01-08 17:43:14,154 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:43:28,437 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:57319][0m
+ERROR 2025-01-08 17:43:28,724 runserver [35;1mHTTP POST /api/v1/auth/login/ 500 [0.28, 127.0.0.1:57319][0m
+INFO 2025-01-08 17:44:43,802 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/serializers.py changed, reloading.
+INFO 2025-01-08 17:44:44,435 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:44:49,551 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.00, 127.0.0.1:57675][0m
+ERROR 2025-01-08 17:44:49,810 runserver [35;1mHTTP POST /api/v1/auth/login/ 500 [0.26, 127.0.0.1:57675][0m
+INFO 2025-01-08 17:45:34,324 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/models.py changed, reloading.
+INFO 2025-01-08 17:45:34,969 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:48:16,728 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 17:48:21,497 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:58588][0m
+INFO 2025-01-08 17:48:21,735 runserver [mHTTP POST /api/v1/auth/login/ 200 [0.23, 127.0.0.1:58588][0m
+WARNING 2025-01-08 17:53:45,194 runserver [31;1mHTTP POST /api/v1/auth/login/ 401 [0.07, 127.0.0.1:58936][0m
+INFO 2025-01-08 17:53:46,865 runserver [mHTTP POST /api/v1/auth/login/ 200 [0.15, 127.0.0.1:58936][0m
+WARNING 2025-01-08 17:53:52,881 runserver [31;1mHTTP POST /api/v1/auth/login/ 401 [0.03, 127.0.0.1:58948][0m
+INFO 2025-01-08 17:53:54,191 runserver [mHTTP POST /api/v1/auth/login/ 200 [0.14, 127.0.0.1:58958][0m
+WARNING 2025-01-08 17:58:08,962 runserver [31;1mHTTP POST /api/v1/auth/login/ 401 [0.04, 127.0.0.1:59068][0m
+INFO 2025-01-08 17:58:40,927 runserver [mHTTP POST /api/v1/auth/login/ 200 [0.16, 127.0.0.1:59092][0m
+WARNING 2025-01-08 17:58:50,788 runserver [31;1mHTTP POST /api/v1/auth/login/ 401 [0.03, 127.0.0.1:59117][0m
+INFO 2025-01-08 17:59:06,005 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:59186][0m
+INFO 2025-01-08 17:59:06,151 runserver [mHTTP POST /api/v1/auth/login/ 200 [0.14, 127.0.0.1:59186][0m
+INFO 2025-01-08 17:59:20,440 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:59269][0m
+WARNING 2025-01-08 17:59:20,608 runserver [31;1mHTTP POST /api/v1/auth/login/ 401 [0.17, 127.0.0.1:59269][0m
+INFO 2025-01-08 18:02:58,565 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:60295][0m
+INFO 2025-01-08 18:02:58,719 runserver [mHTTP POST /api/v1/auth/login/ 200 [0.15, 127.0.0.1:60295][0m
+INFO 2025-01-08 18:04:47,365 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:60794][0m
+WARNING 2025-01-08 18:04:47,411 runserver [31;1mHTTP POST /api/v1/auth/login/ 401 [0.04, 127.0.0.1:60794][0m
+INFO 2025-01-08 18:05:11,409 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.00, 127.0.0.1:60921][0m
+INFO 2025-01-08 18:05:11,565 runserver [mHTTP POST /api/v1/auth/login/ 200 [0.15, 127.0.0.1:60921][0m
+INFO 2025-01-08 18:23:49,466 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/authentication/views.py changed, reloading.
+INFO 2025-01-08 18:23:50,409 autoreload Watching for file changes with StatReloader
+INFO 2025-01-08 19:44:48,877 autoreload Watching for file changes with StatReloader
+INFO 2025-01-09 12:28:33,663 autoreload Watching for file changes with StatReloader
+INFO 2025-01-09 12:31:11,165 runserver [mHTTP OPTIONS /api/v1/auth/login/ 200 [0.01, 127.0.0.1:57384][0m
+WARNING 2025-01-09 12:31:11,204 runserver [31;1mHTTP POST /api/v1/auth/login/ 401 [0.03, 127.0.0.1:57384][0m
+INFO 2025-01-09 12:31:13,318 runserver [mHTTP POST /api/v1/auth/login/ 200 [0.21, 127.0.0.1:57384][0m
