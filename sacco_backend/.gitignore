@@ -6,3 +6,13 @@ __pycache__/
 local.py
 local_static/
 media/
+*.sqlite3
+*.log
+*.pot
+*.mo
+*.pyo
+*.egg-info/
+*.egg
+*.egg-info/
+*.whl
+*.zip
