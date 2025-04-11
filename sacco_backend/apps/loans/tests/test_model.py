@@ -10,7 +10,8 @@ User = get_user_model()
 class LoanModelTest(TestCase):
     def setUp(self):
         self.user = User.objects.create(
-            username='testuser',
+            first_name='Test',
+            last_name='User',
             password='testpass123'
         )
         self.member = Member.objects.create(
