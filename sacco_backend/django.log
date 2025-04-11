@@ -431,3 +431,20 @@ WARNING 2025-04-11 17:46:30,624 runserver [33mHTTP GET /flutter_service_worker.
 WARNING 2025-04-11 17:51:34,612 runserver [31;1mHTTP GET /api/v1/auth/login/ 405 [0.05, 127.0.0.1:65002][0m
 WARNING 2025-04-11 17:51:36,246 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.03, 127.0.0.1:65002][0m
 WARNING 2025-04-11 17:52:05,749 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.04, 127.0.0.1:65028][0m
+INFO 2025-04-11 18:28:35,307 autoreload /Users/tum/programming/personal/sacco/sacco_backend/apps/loans/urls.py changed, reloading.
+INFO 2025-04-11 18:28:36,143 autoreload Watching for file changes with StatReloader
+WARNING 2025-04-11 18:28:53,262 runserver [31;1mHTTP GET /api/v1/ 401 [0.07, 127.0.0.1:49455][0m
+WARNING 2025-04-11 18:28:55,249 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.04, 127.0.0.1:49458][0m
+WARNING 2025-04-11 18:28:58,743 runserver [33mHTTP GET / 404 [0.03, 127.0.0.1:49458][0m
+WARNING 2025-04-11 18:29:00,654 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.04, 127.0.0.1:49461][0m
+WARNING 2025-04-11 18:29:03,689 runserver [33mHTTP GET /api 404 [0.03, 127.0.0.1:49461][0m
+WARNING 2025-04-11 18:29:05,516 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.04, 127.0.0.1:49465][0m
+WARNING 2025-04-11 18:29:07,858 runserver [31;1mHTTP GET /api/v1/ 401 [0.03, 127.0.0.1:49465][0m
+WARNING 2025-04-11 18:29:09,756 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.04, 127.0.0.1:49469][0m
+WARNING 2025-04-11 18:29:10,736 runserver [31;1mHTTP GET /api/v1/ 401 [0.03, 127.0.0.1:49469][0m
+WARNING 2025-04-11 18:29:12,353 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.03, 127.0.0.1:49469][0m
+WARNING 2025-04-11 18:29:12,551 runserver [31;1mHTTP GET /api/v1/?format=api 401 [0.09, 127.0.0.1:49469][0m
+WARNING 2025-04-11 18:29:14,155 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.04, 127.0.0.1:49473][0m
+WARNING 2025-04-11 18:29:14,570 runserver [31;1mHTTP GET /api/v1/?format=json 401 [0.03, 127.0.0.1:49473][0m
+WARNING 2025-04-11 18:29:16,242 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.03, 127.0.0.1:49473][0m
+WARNING 2025-04-11 18:29:45,733 runserver [33mHTTP GET /flutter_service_worker.js?v=492692723 404 [0.04, 127.0.0.1:49488][0m
