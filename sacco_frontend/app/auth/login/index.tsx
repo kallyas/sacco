@@ -8,10 +8,12 @@ import {
   Eye,
   EyeOff,
   ArrowRight,
-  PiggyBank,
+  Building,
   Lock,
   Mail,
-  Github,
+  ShieldCheck,
+  AlertCircle,
+  Clock,
 } from "lucide-react";
 import {
   Form,
@@ -32,6 +34,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "~/components/ui/card";
 import { authService } from "~/services/auth.service";
 
@@ -81,26 +84,113 @@ const LoginPage = () => {
     loginMutation.mutate(data);
   };
 
+  // Security pattern SVG background
+  const patternStyle = {
+    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23215799' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+  };
+
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-background to-muted">
-      {/* Left Side - Login Form */}
-      <div className="flex-1 flex items-center justify-center p-8">
-        <Card className="w-full max-w-md shadow-lg">
-          <CardHeader className="space-y-1">
-            <div className="flex items-center justify-center mb-2">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <PiggyBank className="h-6 w-6 text-primary" />
+    <div
+      className="min-h-screen flex items-stretch bg-background"
+      style={patternStyle}
+    >
+      {/* Left Side - Brand/Feature Showcase */}
+      <div className="hidden lg:flex flex-1 relative bg-primary overflow-hidden">
+        <div className="relative z-10 p-12 flex flex-col justify-between h-full">
+          <div className="flex items-center space-x-3">
+            <Building className="h-8 w-8 text-primary-foreground" />
+            <span className="text-2xl font-bold text-primary-foreground">
+              ModernSACCO
+            </span>
+          </div>
+
+          <div className="max-w-md space-y-8">
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <h2 className="text-4xl font-bold tracking-tight text-primary-foreground">
+                  Secure Online Banking
+                </h2>
+                <p className="text-primary-foreground/80 text-xl">
+                  Your trusted partner in financial growth
+                </p>
+              </div>
+
+              <div className="space-y-4 text-primary-foreground/90">
+                <div className="flex items-start space-x-4">
+                  <div className="h-10 w-10 rounded-full bg-accent flex items-center justify-center mt-0.5 shrink-0">
+                    <ShieldCheck className="h-5 w-5 text-accent-foreground" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-lg">Bank-grade security</h3>
+                    <p>
+                      Enterprise-level encryption protects your personal and
+                      financial information
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="h-10 w-10 rounded-full bg-accent flex items-center justify-center mt-0.5 shrink-0">
+                    <Clock className="h-5 w-5 text-accent-foreground" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-lg">24/7 account access</h3>
+                    <p>Manage your finances anytime, anywhere on any device</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <CardTitle className="text-2xl font-bold text-center">
+
+            <div className="pt-4">
+              <blockquote className="border-l-4 border-accent pl-6 py-4 bg-white/10 rounded-r-md">
+                <p className="italic text-primary-foreground">
+                  "ModernSACCO has transformed how our community saves and
+                  accesses loans. The platform is intuitive and reliable."
+                </p>
+                <footer className="mt-2 text-primary-foreground/80">
+                  <strong>Sarah K.</strong>, Member since 2022
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+
+          <div className="text-primary-foreground/70 text-sm">
+            © 2025 ModernSACCO. All rights reserved.
+          </div>
+        </div>
+
+        {/* Left panel decorative elements */}
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-accent/20 rounded-full transform translate-x-1/3 translate-y-1/3"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+      </div>
+
+      {/* Right Side - Login Form */}
+      <div className="flex-1 flex items-center justify-center p-6 md:p-12">
+        <Card className="w-full max-w-md shadow-xl border-border">
+          <CardHeader className="space-y-1 pb-6">
+            <div className="flex items-center justify-center mb-4">
+              <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
+                <Building className="h-8 w-8 text-primary" />
+              </div>
+            </div>
+            <CardTitle className="text-2xl font-bold text-center text-foreground">
               Welcome back
             </CardTitle>
-            <CardDescription className="text-center">
+            <CardDescription className="text-center text-muted-foreground">
               Enter your credentials to access your account
             </CardDescription>
           </CardHeader>
 
           <CardContent className="space-y-6">
+            {/* Auth notice */}
+            <div className="p-3 bg-secondary/50 rounded-md border border-border flex items-start space-x-3">
+              <AlertCircle className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+              <p className="text-sm text-foreground">
+                For your security, please ensure you're on{" "}
+                <strong>modernsacco.com</strong> before entering your
+                credentials
+              </p>
+            </div>
+
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -112,13 +202,15 @@ const LoginPage = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel className="text-foreground">
+                        Email address
+                      </FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                           <Input
                             {...field}
-                            className="pl-10"
+                            className="pl-10 bg-background border-input"
                             type="email"
                             placeholder="you@example.com"
                             autoComplete="email"
@@ -137,10 +229,12 @@ const LoginPage = () => {
                   render={({ field }) => (
                     <FormItem>
                       <div className="flex items-center justify-between">
-                        <FormLabel>Password</FormLabel>
+                        <FormLabel className="text-foreground">
+                          Password
+                        </FormLabel>
                         <Button
                           variant="link"
-                          className="px-0 h-auto py-0 text-xs font-normal"
+                          className="px-0 h-auto py-0 text-xs font-medium text-primary"
                           onClick={() => navigate("/forgot-password")}
                         >
                           Forgot password?
@@ -151,7 +245,7 @@ const LoginPage = () => {
                           <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                           <Input
                             {...field}
-                            className="pl-10 pr-10"
+                            className="pl-10 pr-10 bg-background border-input"
                             type={showPassword ? "text" : "password"}
                             placeholder="Enter your password"
                             autoComplete="current-password"
@@ -186,10 +280,11 @@ const LoginPage = () => {
                         <Checkbox
                           checked={field.value}
                           onCheckedChange={field.onChange}
+                          className="text-primary border-input data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                         />
                       </FormControl>
-                      <FormLabel className="text-sm font-normal">
-                        Remember me for 30 days
+                      <FormLabel className="text-sm font-normal cursor-pointer">
+                        Stay signed in for 30 days
                       </FormLabel>
                     </FormItem>
                   )}
@@ -198,18 +293,18 @@ const LoginPage = () => {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                   size="lg"
                   disabled={loginMutation.isPending}
                 >
                   {loginMutation.isPending ? (
                     <div className="flex items-center space-x-2">
                       <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                      <span>Signing in...</span>
+                      <span>Authenticating...</span>
                     </div>
                   ) : (
                     <>
-                      Sign in
+                      Sign in securely
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </>
                   )}
@@ -217,82 +312,35 @@ const LoginPage = () => {
               </form>
             </Form>
 
-            <div className="text-center text-sm">
-              Don't have an account?{" "}
-              <Button
-                variant="link"
-                className="p-0 h-auto font-semibold"
-                onClick={() => navigate("/register")}
-              >
-                Create a free account
-              </Button>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <Separator className="w-full" />
+              </div>
+              <div className="relative flex justify-center">
+                <span className="bg-card px-2 text-xs text-muted-foreground">
+                  OR
+                </span>
+              </div>
             </div>
+
+            <Button
+              variant="outline"
+              className="w-full border-input text-foreground hover:bg-secondary/50"
+              onClick={() => navigate("/register")}
+            >
+              Create a new account
+            </Button>
           </CardContent>
-        </Card>
-      </div>
 
-      {/* Right Side - Brand/Feature Showcase */}
-      <div className="hidden lg:flex flex-1 items-center justify-center p-8 bg-primary-foreground">
-        <div className="max-w-md space-y-8">
-          <div className="relative mx-auto w-24 h-24 rounded-full bg-primary/20 flex items-center justify-center">
-            <PiggyBank className="h-12 w-12 text-primary" />
-          </div>
-
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tight">ModernSACCO</h2>
-              <p className="text-muted-foreground text-lg">
-                Your trusted partner in financial growth
+          <CardFooter className="flex justify-center pt-0">
+            <div className="flex items-center space-x-1">
+              <ShieldCheck className="h-4 w-4 text-success" />
+              <p className="text-xs text-muted-foreground">
+                Protected by industry-standard security protocols
               </p>
             </div>
-
-            <div className="space-y-4 text-muted-foreground">
-              <div className="flex items-start space-x-3">
-                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center mt-0.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-primary"></span>
-                </div>
-                <div>
-                  <h3 className="font-medium">Secure transactions</h3>
-                  <p className="text-sm">
-                    Bank-grade encryption keeps your money and data safe
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center mt-0.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-primary"></span>
-                </div>
-                <div>
-                  <h3 className="font-medium">24/7 account access</h3>
-                  <p className="text-sm">
-                    Manage your finances anytime, anywhere on any device
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center mt-0.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-primary"></span>
-                </div>
-                <div>
-                  <h3 className="font-medium">Real-time notifications</h3>
-                  <p className="text-sm">
-                    Stay informed about your account activity as it happens
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4">
-              <blockquote className="border-l-4 border-primary pl-4 italic">
-                "ModernSACCO has transformed how our community saves and
-                accesses loans. The platform is intuitive and reliable."
-                <footer className="mt-2 text-sm font-medium">
-                  — Sarah K., Member since 2022
-                </footer>
-              </blockquote>
-            </div>
-          </div>
-        </div>
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );
