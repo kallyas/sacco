@@ -12,7 +12,6 @@ class AuthViewsTest(APITestCase):
         self.register_url = reverse('auth-register')
         self.login_url = reverse('auth-login')
         self.user_data = {
-            'username': 'testuser',
             'email': 'test@example.com',
             'password': 'testpass123',
             'confirm_password': 'testpass123',
@@ -25,4 +24,4 @@ class AuthViewsTest(APITestCase):
     def test_user_registration(self):
         response = self.client.post(self.register_url, self.user_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertTrue(User.objects.filter(username='testuser').exists())
+        self.assertTrue(User.objects.filter(email=self.user_data['email']).exists())
