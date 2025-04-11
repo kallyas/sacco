@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
-import { Eye, EyeOff, ArrowRight, PiggyBank, Lock, Mail } from "lucide-react";
+import { Eye, EyeOff, ArrowRight, Lock, Mail, CheckCircle, Clock, Lightbulb } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -17,8 +17,7 @@ import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/hooks/use-toast";
 import { Separator } from "~/components/ui/separator";
-import { Checkbox } from "~/components/ui/checkbox";
-import { authService } from "~/services/auth.service";
+import { Checkbox } from "~/components/ui/checkbox";import { authService } from "~/services/auth.service";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -67,17 +66,17 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen flex">
-      {/* Left Side - Login Form */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-background">
-        <div className="w-full max-w-md space-y-8">
-          <div className="space-y-2 text-center">
-            <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
-            <p className="text-muted-foreground">
-              Enter your credentials to access your account
+        {/* Left Side - Login Form */}
+        <div className="flex-1 flex items-center justify-center p-8 bg-background">
+            <div className="w-full max-w-md space-y-6">
+                <div className="space-y-2 text-center">
+                    <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
+                    <p className="text-muted-foreground">
+                        Enter your credentials to access your account
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -92,7 +91,7 @@ const LoginPage = () => {
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <Mail className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
+                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                           <Input
                             {...field}
                             className="pl-10"
@@ -116,7 +115,7 @@ const LoginPage = () => {
                       <FormLabel>Password</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <Lock className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
+                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                           <Input
                             {...field}
                             className="pl-10 pr-10"
@@ -193,47 +192,34 @@ const LoginPage = () => {
                   )}
                 </Button>
               </form>
-            </Form>
-
-            {/* Register Link */}
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <Separator />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  Or continue with
-                </span>
-              </div>
+                    </Form>
+                    <Button
+                        variant="link"
+                        className="w-full"
+                        size="lg"
+                        onClick={() => navigate("/register")}
+                    >
+                        Create an account
+                    </Button>
+                </div>
             </div>
-
-            <div className="grid gap-4">
-              <Button
-                variant="outline"
-                className="text-base"
-                onClick={() => navigate("/register")}
-              >
-                Create a new account
-              </Button>
-            </div>
-          </div>
         </div>
-      </div>
 
-      {/* Right Side - Brand/Feature Showcase */}
-      <div className="hidden lg:flex flex-1 items-center justify-center p-8 bg-muted">
-        <div className="max-w-md space-y-8 text-center">
-          <div className="relative mx-auto w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center">
-            <PiggyBank className="h-12 w-12 text-primary" />
-          </div>
+        {/* Right Side - Brand/Feature Showcase */}
+        <div className="hidden lg:flex flex-1 items-center justify-center p-8 bg-muted">
+            <div className="max-w-md space-y-8 text-center">
+                <img
+                    src="/welcome/illustration.svg"
+                    alt="Financial illustration"
+                    className="mx-auto w-64 h-64 object-contain"
+                />
 
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold tracking-tight">ModernSACCO</h2>
-            <p className="text-muted-foreground">
-              Your trusted partner in financial growth. Access secure savings,
-              quick loans, and smart investments all in one place.
-            </p>
-          </div>
+                <div className="space-y-4">
+                    <h2 className="text-2xl font-bold tracking-tight">Empowering Your Financial Journey</h2>
+                    <p className="text-muted-foreground">
+                        Unlock your financial potential with our modern SACCO platform.
+                    </p>
+                </div>
 
           <div className="grid gap-4 text-sm text-muted-foreground">
             <div className="flex items-center justify-center space-x-2">
