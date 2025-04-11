@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from rest_framework import status
@@ -9,7 +11,8 @@ User = get_user_model()
 class MemberViewsTest(APITestCase):
     def setUp(self):
         self.user = User.objects.create(
-            username='testuser',
+            first_name='Test',
+            last_name='User',
             password='testpass123'
         )
 
@@ -29,8 +32,8 @@ class MemberViewsTest(APITestCase):
 
     def test_create_member(self):
         url = reverse('member-list')
-        response = self.client.post(url, {
+        response = self.client.post(url, json.dumps({
             'member': self.member_data,
             'next_of_kin': []
-        })
+        }), content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
