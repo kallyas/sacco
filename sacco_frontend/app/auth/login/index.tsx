@@ -115,7 +115,7 @@ const LoginPage = () => {
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <Mail className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
+                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                           <Input
                             {...field}
                             className="pl-10"
@@ -148,7 +148,7 @@ const LoginPage = () => {
                       </div>
                       <FormControl>
                         <div className="relative">
-                          <Lock className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
+                          <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                           <Input
                             {...field}
                             className="pl-10 pr-10"
