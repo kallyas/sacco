@@ -21,8 +21,8 @@ export const authService = {
     return api.post("/auth/forgot-password", { email });
   },
 
-  resetPassword: async (token: string, password: string) => {
-    return api.post("/auth/reset-password", { token, password });
+  resetPassword: async (token: string, password: string, confirmPassword: string) => {
+    return api.post("/auth/reset-password", { token, password, confirmPassword });
   },
 
   getCurrentUser: async () => {
