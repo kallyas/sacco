@@ -46,11 +46,22 @@ class LoanService:
         )
 
         for month in range(1, loan.term_months + 1):
-            due_date = loan.disbursement_date + timedelta(days=30 * month)
+            due_date = loan.disbursement_date.date() + timedelta(days=30 * month)
+
+            # Calculate principal and interest components (simplified)
+            # In a real system, you would use an amortization schedule
+            remaining_months = loan.term_months - month + 1
+            interest_component = (loan.amount * (loan.interest_rate / 12 / 100)).quantize(Decimal('0.01'))
+            principal_component = (monthly_payment - interest_component).quantize(Decimal('0.01'))
+
             LoanRepayment.objects.create(
                 loan=loan,
+                reference=f"RP{loan.reference[2:]}-{month:02d}",
                 due_date=due_date,
-                amount=monthly_payment
+                amount=monthly_payment,
+                principal_component=principal_component,
+                interest_component=interest_component,
+                penalty_amount=Decimal('0.00')
             )
 
         NotificationService.send_loan_disbursement_notification(loan.member)
@@ -68,7 +79,7 @@ class LoanService:
             # Check existing loans
             active_loans = await Loan.objects.filter(
                 member=member,
-                status__in=['PENDING', 'APPROVED', 'ACTIVE']
+                status__in=['PENDING', 'APPROVED', 'DISBURSED']
             ).acount()
 
             if active_loans > 0:
