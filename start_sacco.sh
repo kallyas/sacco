@@ -1,125 +1,121 @@
 #!/bin/bash
 
-# Colors for better output visibility
+# Constants for colors
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
+RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}=== SACCO Application Startup Script ===${NC}"
+# Default configurations
+BACKEND_DIR=${BACKEND_DIR:-"./sacco_backend"}
+FRONTEND_DIR=${FRONTEND_DIR:-"./sacco_frontend"}
+BACKEND_PORT=${BACKEND_PORT:-8000}
+FRONTEND_PORT=${FRONTEND_PORT:-3000}
 
-# Define paths to backend and frontend
-BACKEND_DIR="./sacco_backend"
-FRONTEND_DIR="./sacco_frontend"
+# Format output logs
+log() {
+    echo -e "${GREEN}[INFO]${NC} $1"
+}
+warn() {
+    echo -e "${YELLOW}[WARN]${NC} $1"
+}
+error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+    exit 1
+}
+
+# Check dependencies
+command -v lsof >/dev/null || error "lsof is required but not installed."
+command -v python3 >/dev/null || error "python3 is required but not installed."
+command -v npm >/dev/null || error "npm is required but not installed."
+
+log "=== SACCO Application Startup Script ==="
 
 # Check if directories exist
-if [ ! -d "$BACKEND_DIR" ]; then
-    echo -e "${YELLOW}Backend directory not found at $BACKEND_DIR${NC}"
-    exit 1
-fi
+[ ! -d "$BACKEND_DIR" ] && error "Backend directory not found at $BACKEND_DIR"
+[ ! -d "$FRONTEND_DIR" ] && error "Frontend directory not found at $FRONTEND_DIR"
 
-if [ ! -d "$FRONTEND_DIR" ]; then
-    echo -e "${YELLOW}Frontend directory not found at $FRONTEND_DIR${NC}"
-    exit 1
-fi
-
-# Function to check if a port is already in use
-check_port() {
-    if lsof -Pi :$1 -sTCP:LISTEN -t >/dev/null ; then
-        echo -e "${YELLOW}Warning: Port $1 is already in use!${NC}"
-        echo -e "You may need to kill the process using: ${BLUE}kill \$(lsof -ti:$1)${NC}"
-        return 1
-    fi
-    return 0
+# Function to check and assign a free port
+assign_free_port() {
+    local port=$1
+    while lsof -Pi :$port -sTCP:LISTEN -t >/dev/null ; do
+        warn "Port $port is in use. Trying next port..."
+        port=$((port + 1))
+    done
+    echo $port
 }
+
+# Assign free ports if necessary
+BACKEND_PORT=$(assign_free_port $BACKEND_PORT)
+FRONTEND_PORT=$(assign_free_port $FRONTEND_PORT)
 
 # Start the Django backend
 start_backend() {
-    echo -e "${GREEN}Starting Django backend...${NC}"
+    log "Starting Django backend on port $BACKEND_PORT..."
     cd "$BACKEND_DIR" || exit 1
     
-    # Check if venv exists
+    # Check and create virtual environment
     if [ ! -d "venv" ]; then
-        echo -e "${YELLOW}Virtual environment not found. Creating...${NC}"
-        python3 -m venv venv
+        warn "Virtual environment not found. Creating..."
+        python3 -m venv venv || error "Failed to create virtual environment."
     fi
     
     # Activate virtual environment
-    source venv/bin/activate
+    source venv/bin/activate || error "Failed to activate virtual environment."
     
-    # Check if Django is installed
-    if ! python -c "import django" &> /dev/null; then
-        echo -e "${YELLOW}Django not found. Installing requirements...${NC}"
-        pip install -r requirements.txt
+    # Install dependencies if requirements.txt exists
+    if [ -f "requirements.txt" ]; then
+        pip install -r requirements.txt || error "Failed to install Python dependencies."
     fi
     
     # Start the Django server
-    echo -e "${BLUE}Starting Django server on http://127.0.0.1:8000${NC}"
-    python manage.py runserver &
+    python manage.py runserver 127.0.0.1:$BACKEND_PORT > backend.log 2>&1 &
     BACKEND_PID=$!
-    echo "Backend started with PID: $BACKEND_PID"
+    log "Backend started with PID: $BACKEND_PID (logs: backend.log)"
     
-    # Return to original directory
     cd - > /dev/null
 }
 
 # Start the React frontend
 start_frontend() {
-    echo -e "${GREEN}Starting Vite React frontend...${NC}"
+    log "Starting React frontend on port $FRONTEND_PORT..."
     cd "$FRONTEND_DIR" || exit 1
     
-    # Check if node_modules exists
+    # Install Node.js dependencies if missing
     if [ ! -d "node_modules" ]; then
-        echo -e "${YELLOW}Node modules not found. Installing...${NC}"
-        npm install
+        warn "Node modules not found. Installing..."
+        npm install || error "Failed to install Node.js dependencies."
     fi
     
-    # Start the Vite server on port 3000
-    echo -e "${BLUE}Starting Vite server on http://localhost:3000${NC}"
-    npm run dev -- --port 3000 &
+    # Start the React development server
+    yarn dev -- --port $FRONTEND_PORT > frontend.log 2>&1 &
     FRONTEND_PID=$!
-    echo "Frontend started with PID: $FRONTEND_PID"
+    log "Frontend started with PID: $FRONTEND_PID (logs: frontend.log)"
     
-    # Return to original directory
     cd - > /dev/null
 }
 
-# Clean up function to kill processes on exit
+# Cleanup function to kill background processes
 cleanup() {
-    echo -e "\n${GREEN}Shutting down services...${NC}"
-    
-    if [ -n "$BACKEND_PID" ]; then
-        echo "Killing backend process ($BACKEND_PID)"
-        kill $BACKEND_PID 2>/dev/null
-    fi
-    
-    if [ -n "$FRONTEND_PID" ]; then
-        echo "Killing frontend process ($FRONTEND_PID)"
-        kill $FRONTEND_PID 2>/dev/null
-    fi
-    
-    echo -e "${GREEN}All services stopped${NC}"
+    log "Shutting down services..."
+    [ -n "$BACKEND_PID" ] && kill $BACKEND_PID 2>/dev/null && log "Backend process ($BACKEND_PID) stopped."
+    [ -n "$FRONTEND_PID" ] && kill $FRONTEND_PID 2>/dev/null && log "Frontend process ($FRONTEND_PID) stopped."
+    log "All services stopped."
     exit 0
 }
 
-# Set up trap to clean up processes on script exit
+# Set up trap to clean up on exit
 trap cleanup SIGINT SIGTERM EXIT
-
-# Check if required ports are available
-check_port 8000 && check_port 3000
 
 # Start services
 start_backend
 start_frontend
 
-# Keep the script running to maintain background processes
-echo -e "\n${GREEN}Both services are now running!${NC}"
-echo -e "${BLUE}Backend:${NC} http://127.0.0.1:8000"
-echo -e "${BLUE}Frontend:${NC} http://localhost:3000"
-echo -e "\n${YELLOW}Press Ctrl+C to stop both services${NC}"
+log "Both services are now running!"
+log "Backend: http://127.0.0.1:$BACKEND_PORT"
+log "Frontend: http://localhost:$FRONTEND_PORT"
+log "Press Ctrl+C to stop both services."
 
-# Wait indefinitely
-while true; do
-    sleep 1
-done
-
+# Wait indefinitely to keep services running
+wait
