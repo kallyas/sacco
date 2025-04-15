@@ -1,5 +1,5 @@
 # Stage 1: Build the React Router application
-FROM node:18-alpine as build
+FROM node:20-alpine as build
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ COPY sacco_frontend/ ./
 RUN yarn build
 
 # Stage 2: Production environment
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
