@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-username/sacco}/sacco-nginx:${TAG:-latest}
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/static
+      - media_volume:/media
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - sacco_network
+    restart: always
+
+  frontend:
+    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-username/sacco}/sacco-frontend:${TAG:-latest}
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+    env_file:
+      - ./.env.frontend
+    networks:
+      - sacco_network
+    restart: always
+
+  backend:
+    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-username/sacco}/sacco-backend:${TAG:-latest}
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    env_file:
+      - ./.env.backend
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+    networks:
+      - sacco_network
+    restart: always
+
+  celery_worker:
+    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-username/sacco}/sacco-celery:${TAG:-latest}
+    command: celery -A config worker --loglevel=info
+    env_file:
+      - ./.env.backend
+    depends_on:
+      - backend
+      - rabbitmq
+      - redis
+    networks:
+      - sacco_network
+    restart: always
+
+  celery_beat:
+    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-username/sacco}/sacco-celery:${TAG:-latest}
+    command: celery -A config beat --loglevel=info
+    env_file:
+      - ./.env.backend
+    depends_on:
+      - backend
+      - rabbitmq
+      - redis
+    networks:
+      - sacco_network
+    restart: always
+
+  db:
+    image: postgres:14-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.db
+    networks:
+      - sacco_network
+    restart: always
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    networks:
+      - sacco_network
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    env_file:
+      - ./.env.rabbitmq
+    networks:
+      - sacco_network
+    restart: always
+
+networks:
+  sacco_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:
+  static_volume:
+  media_volume:
