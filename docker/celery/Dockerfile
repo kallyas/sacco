@@ -24,19 +24,20 @@ RUN pip install --no-cache-dir -r requirements/production.txt
 # Copy project code
 COPY sacco_backend/ .
 
+# Copy the entrypoint script and set permissions (while still root)
+COPY ./docker/celery/entrypoint.sh /entrypoint.sh
+RUN sed -i 's/\r$//g' /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Create a non-root user
 RUN addgroup --system django \
     && adduser --system --ingroup django django
 
 # Change ownership of the application directory
 RUN chown -R django:django /app
+RUN chown django:django /entrypoint.sh
 
 # Switch to non-root user
 USER django
-
-# Copy the entrypoint script
-COPY ./docker/celery/entrypoint.sh /entrypoint.sh
-RUN sed -i 's/\r$//g' /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
