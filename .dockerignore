@@ -1,0 +1,83 @@
+# Version control
+.git
+.gitignore
+.github
+
+# Docker
+.dockerignore
+docker-compose*.yml
+docker/
+!docker/*/Dockerfile
+!docker/*/entrypoint.sh
+!docker/nginx/conf.d/
+
+# Node.js (frontend)
+sacco_frontend/node_modules
+sacco_frontend/coverage
+sacco_frontend/build
+sacco_frontend/.env*
+sacco_frontend/npm-debug.log*
+sacco_frontend/yarn-debug.log*
+sacco_frontend/yarn-error.log*
+sacco_frontend/.DS_Store
+
+# Python/Django (backend)
+sacco_backend/**/__pycache__/
+sacco_backend/**/*.py[cod]
+sacco_backend/**/*.so
+sacco_backend/**/.Python
+sacco_backend/**/env/
+sacco_backend/**/build/
+sacco_backend/**/develop-eggs/
+sacco_backend/**/dist/
+sacco_backend/**/downloads/
+sacco_backend/**/eggs/
+sacco_backend/**/.eggs/
+sacco_backend/**/lib/
+sacco_backend/**/lib64/
+sacco_backend/**/parts/
+sacco_backend/**/sdist/
+sacco_backend/**/var/
+sacco_backend/**/*.egg-info/
+sacco_backend/**/.installed.cfg
+sacco_backend/**/*.egg
+sacco_backend/**/staticfiles/
+sacco_backend/**/media/
+sacco_backend/**/.env*
+sacco_backend/**/celerybeat-schedule
+sacco_backend/**/celerybeat.pid
+sacco_backend/**/*.log
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Documentation
+README.md
+CHANGELOG.md
+LICENSE
+docs/
+
+# Testing
+**/tests/
+**/test_*.py
+**/*.spec.js
+**/*.test.js
+
+# Local environment files
+.env*
+!.env.example
+
+# Misc
+*.log
+.coverage
+htmlcov/
