@@ -61,4 +61,4 @@ USER django
 ENTRYPOINT ["/entrypoint.sh"]
 
 # Run Gunicorn by default
-CMD ["gunicorn", "--config", "gunicorn.conf.py", "config.wsgi:application"]
+CMD ["gunicorn", "--config", "gunicorn.conf.py", "core.wsgi:application"]
