@@ -5,6 +5,8 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY sacco_frontend/package*.json ./
+# Copy Yarn lock file if it exists
+COPY sacco_frontend/yarn.lock ./
 
 # Install dependencies
 RUN npm ci
@@ -13,7 +15,7 @@ RUN npm ci
 COPY sacco_frontend/ ./
 
 # Build the application
-RUN npm run build
+RUN yarn build
 
 # Stage 2: Production environment
 FROM node:18-alpine
@@ -24,7 +26,7 @@ WORKDIR /app
 COPY sacco_frontend/package*.json ./
 
 # Install only production dependencies
-RUN npm ci --production
+RUN yarn install --production
 
 # Copy built app from the build stage
 COPY --from=build /app/build ./build
