@@ -2,9 +2,10 @@ version: '3.8'
 
 services:
   nginx:
-    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-username/sacco}/sacco-nginx:${TAG:-latest}
+    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-kallyas/sacco}/sacco-nginx:${TAG:-main}
+    platform: linux/amd64
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - static_volume:/static
       - media_volume:/media
@@ -16,7 +17,8 @@ services:
     restart: always
 
   frontend:
-    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-username/sacco}/sacco-frontend:${TAG:-latest}
+    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-kallyas/sacco}/sacco-frontend:${TAG:-main}
+    platform: linux/amd64
     environment:
       - PORT=3000
       - NODE_ENV=production
@@ -27,7 +29,8 @@ services:
     restart: always
 
   backend:
-    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-username/sacco}/sacco-backend:${TAG:-latest}
+    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-kallyas/sacco}/sacco-backend:${TAG:-main}
+    platform: linux/amd64
     volumes:
       - static_volume:/app/staticfiles
       - media_volume:/app/media
@@ -42,7 +45,8 @@ services:
     restart: always
 
   celery_worker:
-    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-username/sacco}/sacco-celery:${TAG:-latest}
+    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-kallyas/sacco}/sacco-celery:${TAG:-main}
+    platform: linux/amd64
     command: celery -A config worker --loglevel=info
     env_file:
       - ./.env.backend
@@ -55,7 +59,8 @@ services:
     restart: always
 
   celery_beat:
-    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-username/sacco}/sacco-celery:${TAG:-latest}
+    image: ${REGISTRY:-ghcr.io}/${GITHUB_REPOSITORY:-kallyas/sacco}/sacco-celery:${TAG:-main}
+    platform: linux/amd64
     command: celery -A config beat --loglevel=info
     env_file:
       - ./.env.backend
@@ -69,6 +74,7 @@ services:
 
   db:
     image: postgres:14-alpine
+    platform: linux/amd64
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
@@ -79,6 +85,7 @@ services:
 
   redis:
     image: redis:7-alpine
+    platform: linux/amd64
     volumes:
       - redis_data:/data
     networks:
@@ -87,6 +94,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
+    platform: linux/amd64
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     env_file:
