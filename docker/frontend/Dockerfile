@@ -3,13 +3,15 @@ FROM node:18-alpine as build
 
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY sacco_frontend/package*.json ./
-# Copy Yarn lock file if it exists
+# Install yarn if needed
+RUN apk add --no-cache yarn
+
+# Copy package.json and yarn.lock
+COPY sacco_frontend/package.json ./
 COPY sacco_frontend/yarn.lock ./
 
 # Install dependencies
-RUN npm ci
+RUN yarn install
 
 # Copy the rest of the frontend code
 COPY sacco_frontend/ ./
@@ -22,8 +24,12 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy package.json
-COPY sacco_frontend/package*.json ./
+# Install yarn if needed
+RUN apk add --no-cache yarn
+
+# Copy package.json and yarn.lock
+COPY sacco_frontend/package.json ./
+COPY sacco_frontend/yarn.lock ./
 
 # Install only production dependencies
 RUN yarn install --production
@@ -36,4 +42,4 @@ COPY --from=build /app/node_modules ./node_modules
 EXPOSE 3000
 
 # Start the application with react-router-serve
-CMD ["npm", "run", "start"]
+CMD ["yarn", "start"]
