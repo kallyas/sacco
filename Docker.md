@@ -52,7 +52,7 @@ Create the following environment files in your project root:
 DEBUG=False
 SECRET_KEY=change_this_to_a_secure_key
 ALLOWED_HOSTS=localhost,127.0.0.1
-DJANGO_SETTINGS_MODULE=config.settings.production
+DJANGO_SETTINGS_MODULE=core.settings.production
 
 # Database settings
 POSTGRES_HOST=db
