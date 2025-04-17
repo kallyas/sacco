@@ -73,7 +73,7 @@ class LoanRepository {
   }
 
   // Make loan repayment
-  Future<bool> makeLoanRepayment({
+  Future<dynamic> makeLoanRepayment({
     required int loanId,
     required double amount,
     required String paymentMethod,
@@ -88,6 +88,6 @@ class LoanRepository {
       },
     );
     
-    return response['success'] ?? false;
+    return response;
   }
 }
