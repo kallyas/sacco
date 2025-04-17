@@ -1,3 +1,4 @@
+// lib/core/api/api_client.dart
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,11 +7,13 @@ import 'package:sacco_mobile/app/app_constants.dart';
 import 'package:sacco_mobile/core/api/interceptors/auth_interceptor.dart';
 import 'package:sacco_mobile/core/api/interceptors/logging_interceptor.dart';
 import 'package:sacco_mobile/core/errors/app_error.dart';
+import 'package:sacco_mobile/core/services/connectivity_service.dart';
 
 class ApiClient {
   late final Dio _dio;
-  
-  ApiClient() {
+  final ConnectivityService _connectivityService;
+
+  ApiClient(this._connectivityService) {
     _dio = Dio(
       BaseOptions(
         baseUrl: AppConstants.apiBaseUrl,
@@ -20,16 +23,19 @@ class ApiClient {
         responseType: ResponseType.json,
       ),
     );
-    
+
     // Add interceptors
     _dio.interceptors.add(AuthInterceptor());
     _dio.interceptors.add(LoggingInterceptor());
   }
-  
-  Future<dynamic> get(String path, {
+
+  Future<dynamic> get(
+    String path, {
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
+    await _checkConnectivity();
+
     try {
       final response = await _dio.get(
         path,
@@ -46,12 +52,15 @@ class ApiClient {
       );
     }
   }
-  
-  Future<dynamic> post(String path, {
+
+  Future<dynamic> post(
+    String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
+    await _checkConnectivity();
+
     try {
       final response = await _dio.post(
         path,
@@ -69,12 +78,15 @@ class ApiClient {
       );
     }
   }
-  
-  Future<dynamic> put(String path, {
+
+  Future<dynamic> put(
+    String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
+    await _checkConnectivity();
+
     try {
       final response = await _dio.put(
         path,
@@ -92,12 +104,15 @@ class ApiClient {
       );
     }
   }
-  
-  Future<dynamic> delete(String path, {
+
+  Future<dynamic> delete(
+    String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) async {
+    await _checkConnectivity();
+
     try {
       final response = await _dio.delete(
         path,
@@ -115,7 +130,19 @@ class ApiClient {
       );
     }
   }
-  
+
+  // Check for connectivity before making a request
+  Future<void> _checkConnectivity() async {
+    final isConnected = await _connectivityService.isConnected();
+    if (!isConnected) {
+      throw AppError(
+        message: AppConstants.networkErrorMessage,
+        originalError: 'No internet connection',
+        statusCode: 0,
+      );
+    }
+  }
+
   AppError _handleError(DioException error) {
     if (error.error is SocketException) {
       return AppError(
@@ -124,15 +151,16 @@ class ApiClient {
         statusCode: 0,
       );
     }
-    
+
     int statusCode = error.response?.statusCode ?? 0;
     String message = '';
-    
+
     try {
       // Try to parse error message from response
       if (error.response?.data != null) {
         final responseData = error.response?.data;
-        if (responseData is Map<String, dynamic> && responseData.containsKey('error')) {
+        if (responseData is Map<String, dynamic> &&
+            responseData.containsKey('error')) {
           message = responseData['error'];
         } else if (responseData is String) {
           // Try to parse JSON string
@@ -146,7 +174,7 @@ class ApiClient {
       // If can't parse error message, use default
       message = error.message ?? AppConstants.genericErrorMessage;
     }
-    
+
     // Handle specific status codes
     switch (statusCode) {
       case 401:
@@ -175,7 +203,8 @@ class ApiClient {
         );
       default:
         return AppError(
-          message: message.isNotEmpty ? message : AppConstants.genericErrorMessage,
+          message:
+              message.isNotEmpty ? message : AppConstants.genericErrorMessage,
           originalError: error.toString(),
           statusCode: statusCode,
         );
