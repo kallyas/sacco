@@ -12,7 +12,7 @@ import 'package:sacco_mobile/shared/widgets/error_widget.dart';
 import 'package:sacco_mobile/shared/widgets/loading_indicator.dart';
 
 class LoanListScreen extends StatefulWidget {
-  const LoanListScreen({Key? key}) : super(key: key);
+  const LoanListScreen({super.key});
 
   @override
   State<LoanListScreen> createState() => _LoanListScreenState();
