@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sacco_mobile/app/app_constants.dart';
 import 'package:sacco_mobile/core/errors/app_error.dart';
 import 'package:sacco_mobile/core/services/auth_service.dart';
+import 'package:sacco_mobile/core/services/connectivity_service.dart';
 import 'package:sacco_mobile/features/auth/models/login_request.dart';
 import 'package:sacco_mobile/features/auth/models/user.dart';
 import 'package:sacco_mobile/features/auth/repositories/auth_repository.dart';
@@ -26,7 +27,7 @@ class LoginViewModel extends ChangeNotifier {
   User? _user;
   User? get user => _user;
 
-  LoginViewModel(this._authRepository, this._authService);
+  LoginViewModel(this._authRepository, this._authService, ConnectivityService connectivityService);
 
   // Form controllers
   final TextEditingController emailController = TextEditingController();
