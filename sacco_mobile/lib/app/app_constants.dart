@@ -3,23 +3,23 @@ class AppConstants {
   AppConstants._();
   
   // API base URL - update with your actual API endpoint
-  static const String apiBaseUrl = 'http://localhost:8000/api/v1';
+  static const String apiBaseUrl = 'http://172.16.0.240:8000/api/v1';
   
   // Authentication endpoints
-  static const String loginEndpoint = '/auth/login';
-  static const String registerEndpoint = '/auth/register';
-  static const String refreshTokenEndpoint = '/auth/refresh-token';
+  static const String loginEndpoint = '/auth/login/';
+  static const String registerEndpoint = '/auth/register/';
+  static const String refreshTokenEndpoint = '/auth/refresh-token/';
   
   // Member endpoints
   static const String memberEndpoint = '/members';
   
   // Savings endpoints
-  static const String savingsEndpoint = '/savings';
-  static const String transactionsEndpoint = '/transactions';
+  static const String savingsEndpoint = '/savings/';
+  static const String transactionsEndpoint = '/transactions/';
   
   // Loan endpoints
-  static const String loansEndpoint = '/loans';
-  static const String loanApplicationsEndpoint = '/loan_applications';
+  static const String loansEndpoint = '/loans/';
+  static const String loanApplicationsEndpoint = '/loan_applications/';
   
   // Secure storage keys
   static const String accessTokenKey = 'access_token';

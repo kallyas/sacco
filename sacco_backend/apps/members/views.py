@@ -34,6 +34,16 @@ class MemberViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+    @action(detail=False, methods=['get'])
+    def me(self, request):
+        member = Member.objects.filter(user=request.user).first()
+        if not member:
+            return Response(
+                {'error': 'Member not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        return Response(MemberSerializer(member).data)
+
     @action(detail=True, methods=['post'])
     def upload_document(self, request, pk=None):
         member = self.get_object()

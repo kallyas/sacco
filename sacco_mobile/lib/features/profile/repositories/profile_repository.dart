@@ -11,7 +11,7 @@ class ProfileRepository {
   // Get member profile
   Future<MemberProfile> getMemberProfile() async {
     final response = await _apiClient.get(
-      '${AppConstants.memberEndpoint}/me',
+      '${AppConstants.memberEndpoint}/me/',
     );
     
     return MemberProfile.fromJson(response);
@@ -20,7 +20,7 @@ class ProfileRepository {
   // Update member profile
   Future<MemberProfile> updateMemberProfile(Map<String, dynamic> profileData) async {
     final response = await _apiClient.put(
-      '${AppConstants.memberEndpoint}/me',
+      '${AppConstants.memberEndpoint}/me/',
       data: profileData,
     );
     
