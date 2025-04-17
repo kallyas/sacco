@@ -71,4 +71,23 @@ class LoanRepository {
     
     return LoanApplication.fromJson(response);
   }
+
+  // Make loan repayment
+  Future<bool> makeLoanRepayment({
+    required int loanId,
+    required double amount,
+    required String paymentMethod,
+    String? description,
+  }) async {
+    final response = await _apiClient.post(
+      '${AppConstants.loansEndpoint}/$loanId/repayments',
+      data: {
+        'amount': amount,
+        'payment_method': paymentMethod,
+        'description': description,
+      },
+    );
+    
+    return response['success'] ?? false;
+  }
 }
