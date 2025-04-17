@@ -6,6 +6,7 @@ import 'package:sacco_mobile/core/di/service_locator.dart';
 import 'package:sacco_mobile/features/savings/models/transaction.dart' as savings;
 import 'package:sacco_mobile/features/savings/viewmodels/savings_account_viewmodel.dart';
 import 'package:sacco_mobile/features/savings/viewmodels/transaction_viewmodel.dart';
+import 'package:sacco_mobile/features/savings/views/all_transactions.dart';
 import 'package:sacco_mobile/features/savings/views/deposit_screen.dart';
 import 'package:sacco_mobile/features/savings/views/transaction_detail_screen.dart';
 import 'package:sacco_mobile/features/savings/views/withdraw_screen.dart';
@@ -331,7 +332,13 @@ class _SavingsAccountScreenState extends State<SavingsAccountScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  // TODO: Navigate to all transactions screen
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => AllTransactionsScreen(
+                        accountId: viewModel.accountId,
+                      ),
+                    ),
+                  );
                 },
                 child: const Text('View All'),
               ),
