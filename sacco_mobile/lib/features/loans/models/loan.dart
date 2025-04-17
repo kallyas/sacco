@@ -92,6 +92,16 @@ class Loan extends BaseModel {
   
   // Is loan active?
   bool get isActive => status == 'DISBURSED';
+
+  bool get isCompleted => status == 'COMPLETED';
+  bool get isDefaulted => status == 'DEFAULTED';
+  bool get isPending => status == 'PENDING';
+  bool get isRejected => status == 'REJECTED';
+  bool get isApproved => status == 'APPROVED';
+  bool get isMissedPayment => missedPaymentsCount > 0;
+  bool get isOverdue => nextPaymentDate != null && nextPaymentDate!.isBefore(DateTime.now());
+  bool get isDisbursed => status == 'DISBURSED';
+  bool get isPendingApproval => status == 'PENDING';
   
   // Get loan progress percentage
   double get progressPercentage {
