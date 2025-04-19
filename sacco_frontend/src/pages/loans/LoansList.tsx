@@ -25,7 +25,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  Alert
+  Alert,
 } from '@mui/material';
 import {
   Search as SearchIcon,
@@ -594,5 +594,6 @@ const LoansList: React.FC = () => {
       </Dialog>
     </Box>
   );
-}
+};
+
 export default LoansList;
