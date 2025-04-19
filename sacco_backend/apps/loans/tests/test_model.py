@@ -1,6 +1,7 @@
 # apps/loans/tests/test_models.py
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from apps.authentication.models import Role
 from apps.members.models import Member
@@ -13,20 +14,35 @@ User = get_user_model()
 
 class LoanModelTest(TestCase):
     def setUp(self):
+        # Create a role
+        self.role = Role.objects.create(name='Member', description='Member role')
+
         # Create a user
         self.user = User.objects.create_user(
             email='test@example.com',
             password='testpass123',
             first_name='Test',
             last_name='User',
-            role=Role.objects.create(name='Member', description='Member role')
+            role=self.role,
+            phone_number='+256700000000',
+            national_id='TEST123'
         )
 
         # Create a member
         self.member = Member.objects.create(
             user=self.user,
             member_number='M2024TEST001',
-            date_of_birth='1990-01-01',
+            date_of_birth=date(1990, 1, 1),
+            membership_number='SACCOM2024TEST001',
+            marital_status='SINGLE',
+            employment_status='EMPLOYED',
+            occupation='Developer',
+            monthly_income=Decimal('500000'),
+            physical_address='Test Address',
+            city='Kampala',
+            district='Central',
+            national_id='TEST123',
+            membership_type='INDIVIDUAL'
         )
 
     def test_create_loan(self):
