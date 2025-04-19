@@ -14,126 +14,125 @@ import {
   Select,
   MenuItem,
   FormHelperText,
+  Divider,
+  CircularProgress
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { 
+  Visibility, 
+  VisibilityOff, 
+  PersonAdd as PersonAddIcon,
+  Email as EmailIcon,
+  Phone as PhoneIcon,
+  Badge as BadgeIcon,
+  Cake as CakeIcon,
+  Wc as WcIcon,
+  VpnKey as VpnKeyIcon
+} from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { RegisterRequest } from "@/types/auth.types";
+import * as yup from 'yup';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
-  const { register, error } = useAuth();
-
-  const [formData, setFormData] = useState<RegisterRequest>({
-    email: "",
-    password: "",
-    confirm_password: "",
-    first_name: "",
-    last_name: "",
-    phone_number: "",
-    gender: undefined,
-    date_of_birth: "",
-    national_id: "",
-  });
-
+  const { register: registerUser, error: authError } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>
-  ) => {
-    const { name, value } = e.target;
-    if (name) {
-      setFormData({ ...formData, [name]: value });
+  // Define validation schema with Yup
+  const validationSchema = yup.object({
+    first_name: yup
+      .string()
+      .required('First name is required')
+      .max(50, 'First name must be at most 50 characters'),
+    
+    last_name: yup
+      .string()
+      .required('Last name is required')
+      .max(50, 'Last name must be at most 50 characters'),
+    
+    email: yup
+      .string()
+      .email('Enter a valid email')
+      .required('Email is required'),
+    
+    phone_number: yup
+      .string()
+      .required('Phone number is required')
+      .matches(/^\+[0-9]{1,3}[0-9]{9,15}$/, 'Phone number should be in international format (e.g., +256XXXXXXXXX)'),
+    
+    gender: yup
+      .string()
+      .oneOf(['M', 'F', 'O'], 'Please select a valid gender option'),
+    
+    date_of_birth: yup
+      .date()
+      .nullable()
+      .transform((curr, orig) => orig === '' ? null : curr)
+      .max(new Date(), 'Date of birth cannot be in the future'),
+    
+    national_id: yup
+      .string()
+      .required('National ID is required'),
+    
+    password: yup
+      .string()
+      .required('Password is required')
+      .min(8, 'Password must be at least 8 characters')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+        'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+      ),
+    
+    confirm_password: yup
+      .string()
+      .required('Please confirm your password')
+      .oneOf([yup.ref('password')], 'Passwords do not match')
+  });
 
-      // Clear error when user types
-      if (formErrors[name]) {
-        setFormErrors({ ...formErrors, [name]: "" });
-      }
-    }
-  };
+  // Initialize React Hook Form
+  const { control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      confirm_password: "",
+      first_name: "",
+      last_name: "",
+      phone_number: "",
+      gender: "",
+      date_of_birth: "",
+      national_id: "",
+    },
+    resolver: yupResolver(validationSchema)
+  });
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const validateForm = () => {
-    const errors: Record<string, string> = {};
-
-    if (!formData.email) {
-      errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = "Email is invalid";
-    }
-
-    if (!formData.first_name) {
-      errors.first_name = "First name is required";
-    }
-
-    if (!formData.last_name) {
-      errors.last_name = "Last name is required";
-    }
-
-    if (!formData.password) {
-      errors.password = "Password is required";
-    } else if (formData.password.length < 8) {
-      errors.password = "Password must be at least 8 characters";
-    }
-
-    if (!formData.confirm_password) {
-      errors.confirm_password = "Please confirm your password";
-    } else if (formData.password !== formData.confirm_password) {
-      errors.confirm_password = "Passwords do not match";
-    }
-
-    if (!formData.phone_number) {
-      errors.phone_number = "Phone number is required";
-    } else if (!/^\+[0-9]{1,3}[0-9]{9,15}$/.test(formData.phone_number)) {
-      errors.phone_number =
-        "Phone number should be in international format (e.g., +256XXXXXXXXX)";
-    }
-
-    if (!formData.national_id) {
-      errors.national_id = "National ID is required";
-    }
-
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
-
-    setIsSubmitting(true);
-
+  const onSubmit = async (data: any) => {
     try {
-      await register(formData);
+      await registerUser(data as RegisterRequest);
       setSuccess(true);
       setTimeout(() => {
         navigate("/dashboard", { replace: true });
       }, 2000);
     } catch (error) {
       console.error("Registration error:", error);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
   return (
-    <Box>
-      <Typography variant="h5" component="h1" gutterBottom align="center">
-        Create an Account
+    <Box sx={{ width: '100%', maxWidth: '100%' }}>
+      <Typography variant="h5" gutterBottom align="center" sx={{ mt: 2, mb: 3 }}>
+        Create Account
       </Typography>
 
-      {error && (
+      {authError && (
         <Alert severity="error" sx={{ mb: 3 }}>
-          {error}
+          {authError}
         </Alert>
       )}
 
@@ -143,197 +142,272 @@ const Register: React.FC = () => {
         </Alert>
       )}
 
-      <Box component="form" onSubmit={handleSubmit} noValidate>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ width: '100%' }}>
         <Grid container spacing={2}>
+          {/* Personal Information */}
+          <Grid item xs={12}>
+            <Divider textAlign="left" sx={{ mb: 2 }}>Personal Information</Divider>
+          </Grid>
+          
           <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              id="first_name"
-              label="First Name"
+            <Controller
               name="first_name"
-              autoComplete="given-name"
-              value={formData.first_name}
-              onChange={handleChange}
-              error={!!formErrors.first_name}
-              helperText={formErrors.first_name}
-              disabled={isSubmitting}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              id="last_name"
-              label="Last Name"
-              name="last_name"
-              autoComplete="family-name"
-              value={formData.last_name}
-              onChange={handleChange}
-              error={!!formErrors.last_name}
-              helperText={formErrors.last_name}
-              disabled={isSubmitting}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              value={formData.email}
-              onChange={handleChange}
-              error={!!formErrors.email}
-              helperText={formErrors.email}
-              disabled={isSubmitting}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              id="phone_number"
-              label="Phone Number"
-              name="phone_number"
-              autoComplete="tel"
-              placeholder="+256XXXXXXXXX"
-              value={formData.phone_number}
-              onChange={handleChange}
-              error={!!formErrors.phone_number}
-              helperText={formErrors.phone_number}
-              disabled={isSubmitting}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth error={!!formErrors.gender}>
-              <InputLabel id="gender-label">Gender</InputLabel>
-              <Select
-                labelId="gender-label"
-                id="gender"
-                name="gender"
-                value={formData.gender || ""}
-                label="Gender"
-                onChange={handleChange}
-                disabled={isSubmitting}
-              >
-                <MenuItem value="M">Male</MenuItem>
-                <MenuItem value="F">Female</MenuItem>
-                <MenuItem value="O">Other</MenuItem>
-              </Select>
-              {formErrors.gender && (
-                <FormHelperText>{formErrors.gender}</FormHelperText>
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  fullWidth
+                  id="first_name"
+                  label="First Name"
+                  autoComplete="given-name"
+                  error={!!errors.first_name}
+                  helperText={errors.first_name?.message}
+                  disabled={isSubmitting}
+                />
               )}
-            </FormControl>
+            />
           </Grid>
+          
           <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              id="date_of_birth"
-              label="Date of Birth"
+            <Controller
+              name="last_name"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  fullWidth
+                  id="last_name"
+                  label="Last Name"
+                  autoComplete="family-name"
+                  error={!!errors.last_name}
+                  helperText={errors.last_name?.message}
+                  disabled={isSubmitting}
+                />
+              )}
+            />
+          </Grid>
+          
+          <Grid item xs={12} sm={6}>
+            <Controller
+              name="gender"
+              control={control}
+              render={({ field }) => (
+                <FormControl 
+                  fullWidth 
+                  error={!!errors.gender}
+                >
+                  <InputLabel id="gender-label">Gender</InputLabel>
+                  <Select
+                    {...field}
+                    labelId="gender-label"
+                    id="gender"
+                    label="Gender"
+                    disabled={isSubmitting}
+                  >
+                    <MenuItem value="M">Male</MenuItem>
+                    <MenuItem value="F">Female</MenuItem>
+                    <MenuItem value="O">Other</MenuItem>
+                  </Select>
+                  {errors.gender && (
+                    <FormHelperText>{errors.gender.message}</FormHelperText>
+                  )}
+                </FormControl>
+              )}
+            />
+          </Grid>
+          
+          <Grid item xs={12} sm={6}>
+            <Controller
               name="date_of_birth"
-              type="date"
-              value={formData.date_of_birth}
-              onChange={handleChange}
-              error={!!formErrors.date_of_birth}
-              helperText={formErrors.date_of_birth}
-              disabled={isSubmitting}
-              InputLabelProps={{
-                shrink: true,
-              }}
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  fullWidth
+                  id="date_of_birth"
+                  label="Date of Birth"
+                  type="date"
+                  error={!!errors.date_of_birth}
+                  helperText={errors.date_of_birth?.message}
+                  disabled={isSubmitting}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              )}
             />
           </Grid>
+
+          {/* Contact Information */}
           <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              id="national_id"
-              label="National ID"
+            <Divider textAlign="left" sx={{ mt: 1, mb: 2 }}>Contact Information</Divider>
+          </Grid>
+          
+          <Grid item xs={12}>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  autoComplete="email"
+                  error={!!errors.email}
+                  helperText={errors.email?.message}
+                  disabled={isSubmitting}
+                />
+              )}
+            />
+          </Grid>
+          
+          <Grid item xs={12} sm={6}>
+            <Controller
+              name="phone_number"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  fullWidth
+                  id="phone_number"
+                  label="Phone Number"
+                  autoComplete="tel"
+                  placeholder="+256XXXXXXXXX"
+                  error={!!errors.phone_number}
+                  helperText={errors.phone_number?.message}
+                  disabled={isSubmitting}
+                />
+              )}
+            />
+          </Grid>
+          
+          <Grid item xs={12} sm={6}>
+            <Controller
               name="national_id"
-              value={formData.national_id}
-              onChange={handleChange}
-              error={!!formErrors.national_id}
-              helperText={formErrors.national_id}
-              disabled={isSubmitting}
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  fullWidth
+                  id="national_id"
+                  label="National ID"
+                  error={!!errors.national_id}
+                  helperText={errors.national_id?.message}
+                  disabled={isSubmitting}
+                />
+              )}
             />
           </Grid>
+
+          {/* Security Information */}
           <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
+            <Divider textAlign="left" sx={{ mt: 1, mb: 2 }}>Security Information</Divider>
+          </Grid>
+          
+          <Grid item xs={12} sm={6}>
+            <Controller
               name="password"
-              label="Password"
-              type={showPassword ? "text" : "password"}
-              id="password"
-              autoComplete="new-password"
-              value={formData.password}
-              onChange={handleChange}
-              error={!!formErrors.password}
-              helperText={formErrors.password}
-              disabled={isSubmitting}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={toggleShowPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  fullWidth
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  autoComplete="new-password"
+                  error={!!errors.password}
+                  helperText={errors.password?.message}
+                  disabled={isSubmitting}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={toggleShowPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              )}
             />
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
+          
+          <Grid item xs={12} sm={6}>
+            <Controller
               name="confirm_password"
-              label="Confirm Password"
-              type={showPassword ? "text" : "password"}
-              id="confirm_password"
-              autoComplete="new-password"
-              value={formData.confirm_password}
-              onChange={handleChange}
-              error={!!formErrors.confirm_password}
-              helperText={formErrors.confirm_password}
-              disabled={isSubmitting}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={toggleShowPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  required
+                  fullWidth
+                  label="Confirm Password"
+                  type={showPassword ? "text" : "password"}
+                  id="confirm_password"
+                  autoComplete="new-password"
+                  error={!!errors.confirm_password}
+                  helperText={errors.confirm_password?.message}
+                  disabled={isSubmitting}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={toggleShowPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              )}
             />
+          </Grid>
+
+          {/* Submit Button */}
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2, py: 1.5 }}
+              disabled={isSubmitting}
+              startIcon={isSubmitting ? null : <PersonAddIcon />}
+            >
+              {isSubmitting ? <CircularProgress size={24} sx={{ mr: 1 }} /> : null}
+              {isSubmitting ? "Creating Account..." : "Create Account"}
+            </Button>
           </Grid>
         </Grid>
 
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2, py: 1.5 }}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Creating Account..." : "Create Account"}
-        </Button>
-
-        <Box sx={{ mt: 2, textAlign: "center" }}>
+        <Box sx={{ mt: 2, mb: 2, textAlign: "center" }}>
           <Typography variant="body2">
             Already have an account?{" "}
             <MuiLink component={Link} to="/login" variant="body2">
               Sign in
             </MuiLink>
+          </Typography>
+        </Box>
+        
+        <Box sx={{ mt: 1, mb: 3, textAlign: 'center' }}>
+          <Typography variant="caption">
+            By registering, you agree to our{' '}
+            <MuiLink component={Link} to="/terms">Terms</MuiLink> and{' '}
+            <MuiLink component={Link} to="/privacy">Privacy Policy</MuiLink>
           </Typography>
         </Box>
       </Box>
