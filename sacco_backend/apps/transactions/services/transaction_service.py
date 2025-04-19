@@ -37,7 +37,7 @@ class TransactionService:
             transaction_type=transaction_type,
             amount=amount,
             payment_method=payment_method,
-            fee_amount=fee,
+            # fee_amount=fee,
             **kwargs
         )
 
