@@ -3,19 +3,17 @@ import { useNavigate, useLocation, Navigate } from "react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { authService } from "~/services/auth.service";
 import { useToast } from "~/hooks/use-toast";
-import type { AxiosResponse } from "axios";
+import { AxiosError } from "axios";
+import type { User, LoginCredentials, RegisterData } from "~/types/auth";
 
 interface AuthContextType {
   user: User | null | undefined;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (
-    email: string,
-    password: string
-  ) => Promise<AxiosResponse<AuthResponse>>;
+  login: (credentials: LoginCredentials) => Promise<void>;
   logout: () => Promise<void>;
-  register: (data: RegisterData) => Promise<AxiosResponse<AuthResponse>>;
-  updateProfile: (data: Partial<User>) => Promise<AuthResponse>;
+  register: (data: RegisterData) => Promise<void>;
+  updateProfile: (data: Partial<User>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,7 +27,7 @@ const PUBLIC_ROUTES = [
 ];
 
 // Define the routes that authenticated users should not access
-const AUTH_ONLY_ROUTES = [
+const AUTH_RESTRICTED_ROUTES = [
   "/login",
   "/register",
   "/forgot-password",
@@ -52,38 +50,56 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   } = useQuery({
     queryKey: ["auth-user"],
     queryFn: async () => {
-      const token = localStorage.getItem("access_token");
-      if (!token) {
-        setAuthChecked(true);
-        return null;
-      }
-
       try {
         const response = await authService.getCurrentUser();
-        setAuthChecked(true);
-        return response;
+        return response.data;
       } catch (error) {
-        // Clear invalid tokens
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
-        setAuthChecked(true);
-        return null;
+        // If 401, it means token is invalid/expired and not refreshable
+        if ((error as AxiosError).response?.status === 401) {
+          // Will be handled by API interceptor
+          return null;
+        }
+        throw error;
       }
     },
     retry: 1,
     staleTime: 1000 * 60 * 5, // Consider data fresh for 5 minutes
+    refetchOnWindowFocus: true,
+    enabled: authChecked, // Don't fetch until initial auth check is done
   });
+
+  // Check for existing tokens on initial load
+  useEffect(() => {
+    const checkAuth = async () => {
+      const accessToken = localStorage.getItem("access_token");
+      const refreshToken = localStorage.getItem("refresh_token");
+
+      if (!accessToken && !refreshToken) {
+        // No tokens at all
+        setAuthChecked(true);
+        return;
+      }
+
+      // We have tokens, set authChecked to true to enable the user query
+      setAuthChecked(true);
+    };
+
+    checkAuth();
+  }, []);
 
   // Login mutation
   const loginMutation = useMutation({
-    mutationFn: async (credentials: { email: string; password: string }) => {
+    mutationFn: async (credentials: LoginCredentials) => {
       const response = await authService.login(credentials);
-      return response;
+      return response.data;
     },
-    onSuccess: (response) => {
-      localStorage.setItem("access_token", response.data.tokens.access_token);
-      localStorage.setItem("refresh_token", response.data.tokens.refresh_token);
-      queryClient.setQueryData(["auth-user"], response.data.user);
+    onSuccess: (data) => {
+      // Store tokens
+      localStorage.setItem("access_token", data.tokens.access_token);
+      localStorage.setItem("refresh_token", data.tokens.refresh_token);
+
+      // Update user data in query cache
+      queryClient.setQueryData(["auth-user"], data.user);
 
       // Redirect to the original intended route or dashboard
       const intendedPath = location.state?.from || "/dashboard";
@@ -107,16 +123,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const registerMutation = useMutation({
     mutationFn: async (data: RegisterData) => {
       const response = await authService.register(data);
-      return response;
+      return response.data;
     },
-    onSuccess: (response) => {
-      localStorage.setItem("access_token", response.data.tokens.access_token);
-      localStorage.setItem("refresh_token", response.data.tokens.refresh_token);
-      queryClient.setQueryData(["auth-user"], response.data.user);
+    onSuccess: (data) => {
+      localStorage.setItem("access_token", data.tokens.access_token);
+      localStorage.setItem("refresh_token", data.tokens.refresh_token);
+      queryClient.setQueryData(["auth-user"], data.user);
       navigate("/dashboard");
       toast({
         title: "Registration successful",
-        description: "Your account has been created.",
+        description: "Your account has been created successfully.",
       });
     },
     onError: (error: any) => {
@@ -126,21 +142,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         description:
           error.response?.data?.message || "Unable to create account",
       });
-      throw error;
     },
   });
 
   // Logout mutation
   const logoutMutation = useMutation({
     mutationFn: async () => {
-      const refreshToken = localStorage.getItem("refresh_token");
-      if (refreshToken) {
-        try {
-          await authService.logout();
-        } catch (error) {
-          // Continue with logout even if the API call fails
-          console.error("Error during logout:", error);
-        }
+      try {
+        await authService.logout();
+      } catch (error) {
+        // Proceed with local logout even if API call fails
+        console.error("Error during logout:", error);
       }
 
       // Always clear local storage and query cache
@@ -161,7 +173,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const updateProfileMutation = useMutation({
     mutationFn: async (data: Partial<User>) => {
       const response = await authService.updateProfile(data);
-      return response;
+      return response.data;
     },
     onSuccess: (updatedUser) => {
       queryClient.setQueryData(["auth-user"], updatedUser);
@@ -172,56 +184,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     },
   });
 
-  // Token refresh effect
-  useEffect(() => {
-    if (!userData) return;
-
-    const REFRESH_INTERVAL = 1000 * 60 * 14; // 14 minutes
-    const EXPIRY_THRESHOLD = 1000 * 60; // 1 minute before expiry
-
-    const refreshToken = async () => {
-      const refreshToken = localStorage.getItem("refresh_token");
-      if (!refreshToken) return;
-
-      try {
-        const response = await authService.refreshToken();
-        if (response.data.tokens) {
-          localStorage.setItem(
-            "access_token",
-            response.data.tokens.access_token
-          );
-          localStorage.setItem(
-            "refresh_token",
-            response.data.tokens.refresh_token
-          );
-        }
-      } catch (error) {
-        // Silent failure - will be handled during the next API call that requires auth
-        console.error("Failed to refresh token:", error);
-
-        // If token refresh fails, logout the user
-        await logoutMutation.mutateAsync();
-      }
-    };
-
-    // Initial token refresh to ensure we have a valid token
-    refreshToken();
-
-    // Set up interval for token refresh
-    const intervalId = setInterval(refreshToken, REFRESH_INTERVAL);
-    return () => clearInterval(intervalId);
-  }, [userData]);
-
   // Route protection effect for redirecting authenticated users away from auth pages
   useEffect(() => {
-    if (!authChecked || isLoading) return;
+    if (isLoading || !authChecked) return;
 
-    const isAuthOnlyRoute = AUTH_ONLY_ROUTES.some(
+    const isAuthRestrictedRoute = AUTH_RESTRICTED_ROUTES.some(
       (route) =>
         location.pathname === route || location.pathname.startsWith(`${route}/`)
     );
 
-    if (userData && isAuthOnlyRoute) {
+    if (userData && isAuthRestrictedRoute) {
       // Redirect authenticated users away from auth pages
       navigate("/dashboard", { replace: true });
     }
@@ -231,18 +203,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     user: userData,
     isLoading: isLoading || !authChecked,
     isAuthenticated: !!userData,
-    login: (email: string, password: string) =>
-      loginMutation.mutateAsync({ email, password }),
+    login: (credentials: LoginCredentials) =>
+      loginMutation.mutateAsync(credentials),
     logout: () => logoutMutation.mutateAsync(),
     register: (data: RegisterData) => registerMutation.mutateAsync(data),
     updateProfile: (data: Partial<User>) =>
       updateProfileMutation.mutateAsync(data),
   };
-
-  // Don't render anything until we've checked authentication
-  if (!authChecked && isLoading) {
-    return null; // Or return a loading spinner
-  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
