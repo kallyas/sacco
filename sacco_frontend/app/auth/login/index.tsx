@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import {
   Eye,
@@ -13,7 +12,6 @@ import {
   Mail,
   ShieldCheck,
   AlertCircle,
-  Clock,
 } from "lucide-react";
 import {
   Form,
@@ -25,7 +23,6 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
-import { useToast } from "~/hooks/use-toast";
 import { Separator } from "~/components/ui/separator";
 import { Checkbox } from "~/components/ui/checkbox";
 import {
@@ -36,7 +33,8 @@ import {
   CardTitle,
   CardFooter,
 } from "~/components/ui/card";
-import { authService } from "~/services/auth.service";
+import { useAuth } from "~/providers/auth-provider";
+import { Alert, AlertDescription } from "~/components/ui/alert";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -48,8 +46,8 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
-  const { toast } = useToast();
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const { login, isLoading } = useAuth();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -60,28 +58,17 @@ const LoginPage = () => {
     },
   });
 
-  const loginMutation = useMutation({
-    mutationFn: (data: LoginFormValues) => authService.login(data),
-    onSuccess: (response) => {
-      localStorage.setItem("token", response.data.token);
-      toast({
-        title: "Welcome back!",
-        description: "You've successfully signed in to your account.",
-      });
-      navigate("/dashboard");
-    },
-    onError: (error: any) => {
-      toast({
-        variant: "destructive",
-        title: "Login failed",
-        description:
-          error.response?.data?.message || "Please check your credentials.",
-      });
-    },
-  });
-
-  const onSubmit = (data: LoginFormValues) => {
-    loginMutation.mutate(data);
+  const onSubmit = async (data: LoginFormValues) => {
+    try {
+      setLoginError(null);
+      await login(data);
+    } catch (error: any) {
+      setLoginError(
+        error.response?.data?.detail ||
+          error.response?.data?.message ||
+          "Login failed. Please check your credentials and try again."
+      );
+    }
   };
 
   // Security pattern SVG background
@@ -126,15 +113,6 @@ const LoginPage = () => {
                       Enterprise-level encryption protects your personal and
                       financial information
                     </p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="h-10 w-10 rounded-full bg-accent flex items-center justify-center mt-0.5 shrink-0">
-                    <Clock className="h-5 w-5 text-accent-foreground" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-lg">24/7 account access</h3>
-                    <p>Manage your finances anytime, anywhere on any device</p>
                   </div>
                 </div>
               </div>
@@ -191,6 +169,12 @@ const LoginPage = () => {
               </p>
             </div>
 
+            {loginError && (
+              <Alert variant="destructive">
+                <AlertDescription>{loginError}</AlertDescription>
+              </Alert>
+            )}
+
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -232,13 +216,12 @@ const LoginPage = () => {
                         <FormLabel className="text-foreground">
                           Password
                         </FormLabel>
-                        <Button
-                          variant="link"
-                          className="px-0 h-auto py-0 text-xs font-medium text-primary"
-                          onClick={() => navigate("/forgot-password")}
+                        <Link
+                          to="/forgot-password"
+                          className="text-xs font-medium text-primary hover:underline"
                         >
                           Forgot password?
-                        </Button>
+                        </Link>
                       </div>
                       <FormControl>
                         <div className="relative">
@@ -295,9 +278,9 @@ const LoginPage = () => {
                   type="submit"
                   className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                   size="lg"
-                  disabled={loginMutation.isPending}
+                  disabled={isLoading}
                 >
-                  {loginMutation.isPending ? (
+                  {isLoading ? (
                     <div className="flex items-center space-x-2">
                       <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
                       <span>Authenticating...</span>
@@ -323,27 +306,31 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <Button
-              variant="outline"
-              className="w-full border-input text-foreground hover:bg-secondary/50"
-              onClick={() => navigate("/register")}
-            >
-              Create a new account
-            </Button>
+            <Link to="/register" className="block w-full">
+              <Button
+                variant="outline"
+                className="w-full border-input text-foreground hover:bg-secondary/50"
+              >
+                Create a new account
+              </Button>
+            </Link>
           </CardContent>
 
           <CardFooter className="flex justify-center pt-0">
-            <div className="flex items-center space-x-1">
-              <ShieldCheck className="h-4 w-4 text-success" />
-              <p className="text-xs text-muted-foreground">
-                Protected by industry-standard security protocols
-              </p>
-            </div>
+            <p className="text-sm text-muted-foreground">
+              By signing in, you agree to our{" "}
+              <Link to="/terms" className="text-primary hover:underline">
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link to="/privacy" className="text-primary hover:underline">
+                Privacy Policy
+              </Link>
+            </p>
           </CardFooter>
         </Card>
       </div>
     </div>
   );
 };
-
 export default LoginPage;
