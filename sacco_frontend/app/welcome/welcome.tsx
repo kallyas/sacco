@@ -29,9 +29,11 @@ import { Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { useState } from "react";
+import { useAuth } from "~/providers/auth-provider";
 
 export function Welcome() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user } = useAuth();
 
   const features = [
     {
@@ -135,20 +137,30 @@ export function Welcome() {
               >
                 Contact
               </a>
-              <Link to="/login">
-                <Button
-                  variant="outline"
-                  className="border-primary text-primary hover:bg-primary/10"
-                >
-                  Log In
-                </Button>
-              </Link>
-              <Link to="/register">
-                <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  Sign Up
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+              {user ? (
+                <Link to="/dashboard">
+                  <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                    Dashboard
+                  </Button>
+                </Link>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button
+                      variant="outline"
+                      className="border-primary text-primary hover:bg-primary/10"
+                    >
+                      Log In
+                    </Button>
+                  </Link>
+                  <Link to="/register">
+                    <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                      Sign Up
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </>
+              )}
             </nav>
 
             {/* Mobile Menu Button */}
