@@ -1,28 +1,42 @@
-interface User {
-  id: string;
+export interface LoginCredentials {
+  email: string;
+  password: string;
+  rememberMe?: boolean;
+}
+
+export interface RegisterData {
+  email: string;
+  password: string;
+  confirm_password: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  gender?: string;
+  date_of_birth?: string;
+  national_id: string;
+}
+
+export interface User {
+  id: number;
   email: string;
   first_name: string;
   last_name: string;
-  role: string;
+  phone_number: string;
+  gender?: string;
+  date_of_birth?: string;
+  national_id: string;
+  is_verified: boolean;
+  role?: {
+    id: number;
+    name: string;
+    description?: string;
+  };
 }
 
-interface AuthResponse {
+export interface AuthResponse {
+  user: User;
   tokens: {
     access_token: string;
     refresh_token: string;
   };
-  user: User;
-}
-
-interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
-interface RegisterData {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
 }
