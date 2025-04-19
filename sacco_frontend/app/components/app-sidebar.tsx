@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 
 import { NavMain } from "~/components/nav-main";
-import { NavUser } from "~/components/nav-user";
+import { UserNav } from "~/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -30,6 +30,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "~/components/ui/sidebar";
+import { useAuth } from "~/providers/auth-provider";
 
 const data = {
   user: {
@@ -146,10 +147,10 @@ const data = {
       icon: FileIcon,
     },
   ],
-}
-
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useAuth();
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -171,7 +172,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <UserNav user={user} />
       </SidebarFooter>
     </Sidebar>
   );
