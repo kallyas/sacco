@@ -1,45 +1,74 @@
 import { api } from "~/lib/api";
+import type { AxiosResponse } from "axios";
+import type {
+  LoginCredentials,
+  AuthResponse,
+  RegisterData,
+  User,
+} from "~/types/auth";
 
+class AuthService {
+  login(credentials: LoginCredentials): Promise<AxiosResponse<AuthResponse>> {
+    return api.post<AuthResponse>("/auth/login/", {
+      email: credentials.email,
+      password: credentials.password,
+    });
+  }
 
-export const authService = {
-  login: async (credentials: LoginCredentials) => {
-    const response = await api.post<AuthResponse>("/auth/login/", credentials);
-    return response;
-  },
+  register(data: RegisterData): Promise<AxiosResponse<AuthResponse>> {
+    return api.post<AuthResponse>("/auth/register/", data);
+  }
 
-  register: async (data: RegisterData) => {
-    const response = await api.post<AuthResponse>("/auth/register/", data);
-    return response;
-  },
+  logout(): Promise<AxiosResponse<void>> {
+    return api.post("/auth/logout/");
+  }
 
-  logout: async () => {
-    localStorage.removeItem("token");
-    return api.post("/auth/logout");
-  },
+  refreshToken(
+    token: string
+  ): Promise<AxiosResponse<{ tokens: AuthResponse["tokens"] }>> {
+    return api.post<{ tokens: AuthResponse["tokens"] }>(
+      "/auth/refresh-token/",
+      {
+        refresh_token: token,
+      }
+    );
+  }
 
-  forgotPassword: async (email: string) => {
-    return api.post("/auth/forgot-password", { email });
-  },
+  forgotPassword(email: {
+    email: string;
+  }): Promise<AxiosResponse<{ message: string }>> {
+    return api.post<{ message: string }>("/auth/forgot-password/", email);
+  }
 
-  resetPassword: async (token: string, password: string, confirmPassword: string) => {
-    return api.post("/auth/reset-password", { token, password, confirmPassword });
-  },
+  resetPassword(
+    token: string,
+    password: string,
+    confirmPassword: string
+  ): Promise<AxiosResponse<{ message: string }>> {
+    return api.post<{ message: string }>("/auth/reset-password/", {
+      token,
+      password,
+      confirm_password: confirmPassword,
+    });
+  }
 
-  getCurrentUser: async () => {
-    const response = await api.get<Pick<AuthResponse, "user">>("/auth/me");
-    return response.data;
-  },
+  getCurrentUser(): Promise<AxiosResponse<User>> {
+    return api.get<User>("/auth/me/");
+  }
 
-  updateProfile: async (data: Partial<RegisterData>) => {
-    const response = await api.put<AuthResponse>("/auth/profile", data);
-    return response.data;
-  },
+  updateProfile(data: Partial<User>): Promise<AxiosResponse<User>> {
+    return api.put<User>("/auth/profile/", data);
+  }
 
-  changePassword: async (oldPassword: string, newPassword: string) => {
-    return api.post("/auth/change-password", { oldPassword, newPassword });
-  },
+  changePassword(
+    oldPassword: string,
+    newPassword: string
+  ): Promise<AxiosResponse<{ message: string }>> {
+    return api.post<{ message: string }>("/auth/change-password/", {
+      old_password: oldPassword,
+      new_password: newPassword,
+    });
+  }
+}
 
-  refreshToken: async () => {
-    return await api.post<Pick<AuthResponse, "tokens">>("/auth/refresh-token");
-  },
-};
+export const authService = new AuthService();
