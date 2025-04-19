@@ -1,29 +1,29 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import PrivateRoute from './PrivateRoute';
-import PublicRoute from './PublicRoute';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 
 // Layouts
-import DashboardLayout from '@/layouts/DashboardLayout';
-import AuthLayout from '@/layouts/AuthLayout';
+import DashboardLayout from "@/layouts/DashboardLayout";
+import AuthLayout from "@/layouts/AuthLayout";
 
 // Auth Pages
-import Login from '@/pages/auth/Login';
-import Register from '@/pages/auth/Register';
+import Login from "@/pages/auth/Login";
+import Register from "@/pages/auth/Register";
 // import ForgotPassword from '@/pages/auth/ForgotPassword';
 
 // Dashboard Pages
-import Dashboard from '@/pages/dashboard/Dashboard';
+import Dashboard from "@/pages/dashboard/Dashboard";
 
 // Member Pages
-import MembersList from '@/pages/members/MembersList';
+import MembersList from "@/pages/members/MembersList";
 // import MemberProfile from '@/pages/members/MemberProfile';
 // import AddMember from '@/pages/members/AddMember';
 
 // // Loan Pages
-import LoansList from '@/pages/loans/LoansList';
-import LoanDetails from '@/pages/loans/LoanDetails';
-import ApplyLoan from '@/pages/loans/ApplyLoan';
+import LoansList from "@/pages/loans/LoansList";
+import LoanDetails from "@/pages/loans/LoanDetails";
+import ApplyLoan from "@/pages/loans/ApplyLoan";
 
 // // Savings Pages
 // import SavingsAccounts from '@/pages/savings/SavingsAccounts';
@@ -38,13 +38,16 @@ const AppRoutes: React.FC = () => {
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Navigate to="/login" replace />} />
-      
+
       {/* Authentication Routes */}
       <Route
         path="/login"
         element={
           <PublicRoute restricted>
-            <AuthLayout>
+            <AuthLayout
+              title="SACCO Management"
+              subtitle="Access your cooperative banking platform"
+            >
               <Login />
             </AuthLayout>
           </PublicRoute>
@@ -54,7 +57,11 @@ const AppRoutes: React.FC = () => {
         path="/register"
         element={
           <PublicRoute restricted>
-            <AuthLayout>
+            <AuthLayout
+              title="Create an Account"
+              subtitle="Join our cooperative banking platform"
+              isRegister
+            >
               <Register />
             </AuthLayout>
           </PublicRoute>
@@ -70,7 +77,7 @@ const AppRoutes: React.FC = () => {
           </PublicRoute>
         }
       /> */}
-      
+
       {/* Protected Routes */}
       <Route
         path="/dashboard"
@@ -82,7 +89,7 @@ const AppRoutes: React.FC = () => {
           </PrivateRoute>
         }
       />
-      
+
       {/* Member Routes */}
       <Route
         path="/members"
@@ -114,7 +121,7 @@ const AppRoutes: React.FC = () => {
           </PrivateRoute>
         }
       /> */}
-      
+
       {/* Loan Routes */}
       <Route
         path="/loans"
@@ -146,7 +153,7 @@ const AppRoutes: React.FC = () => {
           </PrivateRoute>
         }
       />
-      
+
       {/* Savings Routes */}
       {/* <Route
         path="/savings"
@@ -178,7 +185,7 @@ const AppRoutes: React.FC = () => {
           </PrivateRoute>
         }
       /> */}
-      
+
       {/* Transaction Routes */}
       {/* <Route
         path="/transactions"
@@ -190,7 +197,7 @@ const AppRoutes: React.FC = () => {
           </PrivateRoute>
         }
       /> */}
-      
+
       {/* 404 Catch-all */}
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
