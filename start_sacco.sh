@@ -70,7 +70,7 @@ start_backend() {
     fi
     
     # Start the Django server
-    python manage.py runserver 127.0.0.1:$BACKEND_PORT > backend.log 2>&1 &
+    python manage.py runserver 0.0.0.0:$BACKEND_PORT > backend.log 2>&1 &
     BACKEND_PID=$!
     log "Backend started with PID: $BACKEND_PID (logs: backend.log)"
     
