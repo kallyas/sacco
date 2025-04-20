@@ -2,7 +2,7 @@
 from .base import *
 
 DEBUG = True
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','172.16.0.240']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','172.16.0.240','192.168.1.3']
 SECRET_KEY = 'dev-secret_key'
 
 # Additional apps for development
