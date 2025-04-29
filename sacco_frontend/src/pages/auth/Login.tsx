@@ -1,4 +1,3 @@
-// src/pages/Login.tsx
 import React, { useState } from "react";
 import {
   Box,
@@ -9,7 +8,6 @@ import {
   IconButton,
   Alert,
   Link as MuiLink,
-  Divider,
   Checkbox,
   FormControlLabel,
   useTheme,
@@ -74,12 +72,13 @@ const Login: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // This prevents the default form submission
+    
     if (!validateForm()) return;
 
     setIsSubmitting(true);
     try {
-      await login(formData.email, formData.password, formData.rememberMe);
+      await login(formData.email, formData.password);
       navigate(from, { replace: true });
     } catch (error) {
       console.error("Login error:", error);
@@ -96,7 +95,11 @@ const Login: React.FC = () => {
         </Alert>
       )}
 
-      <Box component="form" onSubmit={handleSubmit} noValidate>
+      <form 
+        onSubmit={handleSubmit} 
+        noValidate
+        style={{ width: '100%' }}
+      >
         <TextField
           required
           fullWidth
@@ -141,7 +144,11 @@ const Login: React.FC = () => {
             ),
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={toggleShowPassword} edge="end">
+                <IconButton 
+                  onClick={toggleShowPassword} 
+                  edge="end"
+                  type="button" // Explicitly set type to prevent form submission
+                >
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
@@ -161,7 +168,12 @@ const Login: React.FC = () => {
             }
             label="Remember me"
           />
-          <MuiLink component={Link} to="/forgot-password" variant="body2">
+          <MuiLink 
+            component={Link} 
+            to="/forgot-password" 
+            variant="body2"
+            onClick={(e) => e.stopPropagation()} // Prevent bubbling up to form
+          >
             Forgot password?
           </MuiLink>
         </Box>
@@ -178,8 +190,12 @@ const Login: React.FC = () => {
           {isSubmitting ? "Signing in..." : "Sign In"}
         </Button>
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          Don’t have an account?{' '}
-          <MuiLink component={Link} to="/register">
+          Don't have an account?{' '}
+          <MuiLink 
+            component={Link} 
+            to="/register"
+            onClick={(e) => e.stopPropagation()} // Prevent bubbling up to form
+          >
             Sign up now
           </MuiLink>
         </Typography>
@@ -187,11 +203,23 @@ const Login: React.FC = () => {
         <Box sx={{ mt: 4, textAlign: 'center' }}>
           <Typography variant="caption">
             By signing in, you agree to our{' '}
-            <MuiLink component={Link} to="/terms">Terms</MuiLink> and{' '}
-            <MuiLink component={Link} to="/privacy">Privacy Policy</MuiLink>
+            <MuiLink 
+              component={Link} 
+              to="/terms"
+              onClick={(e) => e.stopPropagation()} // Prevent bubbling up to form
+            >
+              Terms
+            </MuiLink> and{' '}
+            <MuiLink 
+              component={Link} 
+              to="/privacy"
+              onClick={(e) => e.stopPropagation()} // Prevent bubbling up to form
+            >
+              Privacy Policy
+            </MuiLink>
           </Typography>
         </Box>
-      </Box>
+      </form>
     </>
   );
 };
