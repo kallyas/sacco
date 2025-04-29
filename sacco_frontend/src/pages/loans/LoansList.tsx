@@ -26,6 +26,9 @@ import {
   DialogContentText,
   DialogActions,
   Alert,
+  Stack,
+  alpha,
+  useTheme
 } from '@mui/material';
 import {
   Search as SearchIcon,
@@ -35,6 +38,13 @@ import {
   Cancel as RejectIcon,
   CreditScore as DisburseIcon,
   Calculate as CalculateIcon,
+  FilterList as FilterIcon,
+  MonetizationOn as LoanIcon,
+  Receipt as PendingIcon,
+  AccountBalance as PortfolioIcon,
+  TrendingUp as TrendingUpIcon,
+  TrendingDown as TrendingDownIcon,
+  ArrowForward as ArrowForwardIcon
 } from '@mui/icons-material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
@@ -43,6 +53,7 @@ import { Loan } from '@/types/loan.types';
 import { useAuth } from '@/hooks/useAuth';
 
 const LoansList: React.FC = () => {
+  const theme = useTheme();
   const navigate = useNavigate();
   const { user } = useAuth();
   
@@ -56,6 +67,7 @@ const LoansList: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [tabValue, setTabValue] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
+  const [showFilters, setShowFilters] = useState<boolean>(false);
   
   // Dialog states
   const [loanToApprove, setLoanToApprove] = useState<Loan | null>(null);
@@ -85,6 +97,7 @@ const LoansList: React.FC = () => {
       const response = await loansApi.getLoans({
         page: page + 1, // API uses 1-indexed pages
         status: status,
+        type: typeFilter || undefined,
         member: searchQuery && !isNaN(Number(searchQuery)) ? Number(searchQuery) : undefined,
       });
       
@@ -187,6 +200,12 @@ const LoansList: React.FC = () => {
           label={params.value}
           color={getStatusColor(params.value)}
           size="small"
+          sx={{ 
+            fontWeight: 500,
+            fontSize: '0.75rem',
+            height: 24,
+            borderRadius: 1
+          }}
         />
       ),
     },
@@ -202,16 +221,22 @@ const LoansList: React.FC = () => {
     {
       field: 'actions',
       headerName: 'Actions',
-      width: 200,
+      width: 220,
       sortable: false,
       renderCell: (params) => (
-        <Box>
+        <Stack direction="row" spacing={1}>
           <Tooltip title="View Details">
             <IconButton
               onClick={() => navigate(`/loans/${params.row.id}`)}
               size="small"
+              sx={{ 
+                bgcolor: alpha(theme.palette.primary.main, 0.1),
+                '&:hover': {
+                  bgcolor: alpha(theme.palette.primary.main, 0.2),
+                }
+              }}
             >
-              <ViewIcon />
+              <ViewIcon fontSize="small" sx={{ color: theme.palette.primary.main }} />
             </IconButton>
           </Tooltip>
           
@@ -221,18 +246,28 @@ const LoansList: React.FC = () => {
                 <IconButton
                   onClick={() => setLoanToApprove(params.row)}
                   size="small"
-                  color="success"
+                  sx={{ 
+                    bgcolor: alpha(theme.palette.success.main, 0.1),
+                    '&:hover': {
+                      bgcolor: alpha(theme.palette.success.main, 0.2),
+                    }
+                  }}
                 >
-                  <ApproveIcon />
+                  <ApproveIcon fontSize="small" sx={{ color: theme.palette.success.main }} />
                 </IconButton>
               </Tooltip>
               <Tooltip title="Reject">
                 <IconButton
                   onClick={() => setLoanToReject(params.row)}
                   size="small"
-                  color="error"
+                  sx={{ 
+                    bgcolor: alpha(theme.palette.error.main, 0.1),
+                    '&:hover': {
+                      bgcolor: alpha(theme.palette.error.main, 0.2),
+                    }
+                  }}
                 >
-                  <RejectIcon />
+                  <RejectIcon fontSize="small" sx={{ color: theme.palette.error.main }} />
                 </IconButton>
               </Tooltip>
             </>
@@ -243,13 +278,18 @@ const LoansList: React.FC = () => {
               <IconButton
                 onClick={() => setLoanToDisburse(params.row)}
                 size="small"
-                color="primary"
+                sx={{ 
+                  bgcolor: alpha(theme.palette.info.main, 0.1),
+                  '&:hover': {
+                    bgcolor: alpha(theme.palette.info.main, 0.2),
+                  }
+                }}
               >
-                <DisburseIcon />
+                <DisburseIcon fontSize="small" sx={{ color: theme.palette.info.main }} />
               </IconButton>
             </Tooltip>
           )}
-        </Box>
+        </Stack>
       ),
     },
   ];
@@ -319,13 +359,17 @@ const LoansList: React.FC = () => {
   const loanSummary = [
     { 
       title: 'Total Active Loans', 
-      value: loans.filter(loan => loan.status === 'DISBURSED').length, 
-      color: 'primary.main' 
+      value: loans.filter(loan => loan.status === 'DISBURSED').length,
+      change: +2.5,
+      icon: <LoanIcon />,
+      color: theme.palette.primary.main
     },
     { 
       title: 'Pending Applications', 
-      value: loans.filter(loan => loan.status === 'PENDING').length, 
-      color: 'warning.main' 
+      value: loans.filter(loan => loan.status === 'PENDING').length,
+      change: -3.2,
+      icon: <PendingIcon />,
+      color: theme.palette.warning.main
     },
     { 
       title: 'Loan Portfolio', 
@@ -333,105 +377,232 @@ const LoansList: React.FC = () => {
         loans
           .filter(loan => loan.status === 'DISBURSED')
           .reduce((sum, loan) => sum + loan.outstanding_balance, 0)
-      ), 
-      color: 'success.main' 
+      ),
+      change: +4.7,
+      icon: <PortfolioIcon />,
+      color: theme.palette.success.main
     },
   ];
   
   return (
     <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h4" component="h1">
-          Loans
-        </Typography>
-        <Box>
-          <Button
-            variant="outlined"
-            startIcon={<CalculateIcon />}
-            onClick={() => navigate('/loans/calculator')}
-            sx={{ mr: 2 }}
-          >
-            Loan Calculator
-          </Button>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={() => navigate('/loans/apply')}
-          >
-            Apply for Loan
-          </Button>
-        </Box>
+      {/* Header Area */}
+      <Box mb={4}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs>
+            <Typography variant="h4" component="h1" fontWeight={600} gutterBottom>
+              Loans Management
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Manage loan applications, approvals, and disbursements.
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Stack direction="row" spacing={2}>
+              <Button
+                variant="outlined"
+                startIcon={<CalculateIcon />}
+                onClick={() => navigate('/loans/calculator')}
+                sx={{ 
+                  borderRadius: 1, 
+                  textTransform: 'none',
+                  fontWeight: 500
+                }}
+              >
+                Loan Calculator
+              </Button>
+              <Button
+                variant="contained"
+                startIcon={<AddIcon />}
+                onClick={() => navigate('/loans/apply')}
+                sx={{ 
+                  borderRadius: 1, 
+                  px: 2,
+                  fontWeight: 500,
+                  textTransform: 'none',
+                  boxShadow: theme.shadows[2]
+                }}
+              >
+                Apply for Loan
+              </Button>
+            </Stack>
+          </Grid>
+        </Grid>
       </Box>
       
       {/* Summary Cards */}
-      <Grid container spacing={3} sx={{ mb: 3 }}>
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         {loanSummary.map((item, index) => (
           <Grid item xs={12} sm={4} key={index}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" color="textSecondary" gutterBottom>
-                  {item.title}
+            <Card 
+              sx={{ 
+                borderRadius: 1,
+                boxShadow: theme.shadows[1],
+                height: '100%',
+                position: 'relative',
+                overflow: 'visible'
+              }}
+            >
+              <CardContent sx={{ p: 3, pt: 2.5 }}>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="flex-start"
+                  mb={1}
+                >
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    fontWeight={500}
+                  >
+                    {item.title}
+                  </Typography>
+                  <Box 
+                    sx={{ 
+                      display: 'flex', 
+                      alignItems: 'center',
+                      color: item.change >= 0 ? 'success.main' : 'error.main',
+                      bgcolor: alpha(item.change >= 0 ? theme.palette.success.main : theme.palette.error.main, 0.1),
+                      borderRadius: 5,
+                      py: 0.25,
+                      px: 0.75,
+                      fontSize: '0.75rem',
+                      fontWeight: 500
+                    }}
+                  >
+                    {item.change >= 0 ? <TrendingUpIcon fontSize="inherit" /> : <TrendingDownIcon fontSize="inherit" />}
+                    <Box component="span" ml={0.5}>
+                      {Math.abs(item.change)}%
+                    </Box>
+                  </Box>
+                </Box>
+                <Typography variant="h4" component="div" fontWeight={600} mb={1}>
+                  {typeof item.value === 'number' ? item.value.toLocaleString() : item.value}
                 </Typography>
-                <Typography variant="h4" sx={{ color: item.color }}>
-                  {item.value}
-                </Typography>
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 16,
+                    right: 16,
+                    bgcolor: alpha(item.color, 0.1),
+                    borderRadius: '50%',
+                    width: 42,
+                    height: 42,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  {React.cloneElement(item.icon, {
+                    sx: {
+                      fontSize: 22,
+                      color: item.color,
+                    }
+                  })}
+                </Box>
               </CardContent>
             </Card>
           </Grid>
         ))}
       </Grid>
       
-      {/* Tabs */}
-      <Paper sx={{ mb: 3 }}>
-        <Tabs
-          value={tabValue}
-          onChange={handleTabChange}
-          variant="scrollable"
-          scrollButtons="auto"
-        >
-          <Tab label="All Loans" />
-          <Tab label="Pending" />
-          <Tab label="Approved" />
-          <Tab label="Active" />
-          <Tab label="Completed" />
-        </Tabs>
-      </Paper>
-      
-      {/* Search & Filters */}
-      <Paper sx={{ p: 2, mb: 3 }}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item xs={12} md={6}>
-            <TextField
-              fullWidth
-              placeholder="Search by member ID"
-              variant="outlined"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <Button 
-                      onClick={handleSearch}
-                      variant="contained"
-                      size="small"
-                    >
-                      Search
-                    </Button>
-                  </InputAdornment>
-                )
-              }}
-            />
+      {/* Tabs and Filters */}
+      <Paper 
+        sx={{ 
+          borderRadius: 1,
+          boxShadow: theme.shadows[1],
+          mb: 3,
+          overflow: 'hidden'
+        }}
+      >
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs
+            value={tabValue}
+            onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons="auto"
+            sx={{
+              '& .MuiTab-root': {
+                textTransform: 'none',
+                fontWeight: 500,
+                minHeight: 48,
+              },
+              '& .Mui-selected': {
+                fontWeight: 600,
+              }
+            }}
+          >
+            <Tab label="All Loans" />
+            <Tab label="Pending" />
+            <Tab label="Approved" />
+            <Tab label="Active" />
+            <Tab label="Completed" />
+          </Tabs>
+        </Box>
+        
+        {/* Search & Filters */}
+        <Box sx={{ p: 2 }}>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs>
+              <TextField
+                fullWidth
+                placeholder="Search by member ID"
+                variant="outlined"
+                size="small"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon fontSize="small" />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 1,
+                  }
+                }}
+              />
+            </Grid>
+            
+            <Grid item>
+              <Button 
+                onClick={handleSearch}
+                variant="contained"
+                sx={{ 
+                  borderRadius: 1,
+                  textTransform: 'none',
+                  fontWeight: 500,
+                  boxShadow: 'none',
+                  px: 3
+                }}
+              >
+                Search
+              </Button>
+            </Grid>
+            
+            <Grid item>
+              <Button
+                variant="outlined"
+                startIcon={<FilterIcon />}
+                onClick={() => setShowFilters(!showFilters)}
+                sx={{ 
+                  borderRadius: 1,
+                  textTransform: 'none',
+                  fontWeight: 500
+                }}
+              >
+                Filters
+              </Button>
+            </Grid>
           </Grid>
           
-          {tabValue === 0 && (
-            <>
-              <Grid item xs={12} sm={6} md={3}>
-                <FormControl fullWidth variant="outlined">
+          {showFilters && (
+            <Grid container spacing={2} alignItems="center" sx={{ mt: 1 }}>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth variant="outlined" size="small">
                   <InputLabel id="status-filter-label">Loan Status</InputLabel>
                   <Select
                     labelId="status-filter-label"
@@ -439,6 +610,7 @@ const LoansList: React.FC = () => {
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value as string)}
                     label="Loan Status"
+                    sx={{ borderRadius: 1 }}
                   >
                     <MenuItem value="">All Statuses</MenuItem>
                     <MenuItem value="PENDING">Pending</MenuItem>
@@ -451,8 +623,8 @@ const LoansList: React.FC = () => {
                 </FormControl>
               </Grid>
               
-              <Grid item xs={12} sm={6} md={3}>
-                <FormControl fullWidth variant="outlined">
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth variant="outlined" size="small">
                   <InputLabel id="type-filter-label">Loan Type</InputLabel>
                   <Select
                     labelId="type-filter-label"
@@ -460,6 +632,7 @@ const LoansList: React.FC = () => {
                     value={typeFilter}
                     onChange={(e) => setTypeFilter(e.target.value as string)}
                     label="Loan Type"
+                    sx={{ borderRadius: 1 }}
                   >
                     <MenuItem value="">All Types</MenuItem>
                     <MenuItem value="PERSONAL">Personal</MenuItem>
@@ -470,20 +643,34 @@ const LoansList: React.FC = () => {
                   </Select>
                 </FormControl>
               </Grid>
-            </>
+            </Grid>
           )}
-        </Grid>
+        </Box>
       </Paper>
       
       {/* Error Message */}
       {error && (
-        <Alert severity="error" sx={{ mb: 3 }}>
+        <Alert 
+          severity="error" 
+          sx={{ 
+            mb: 3,
+            borderRadius: 1
+          }}
+        >
           {error}
         </Alert>
       )}
       
       {/* Loans Table */}
-      <Paper sx={{ height: 500, width: '100%' }}>
+      <Paper 
+        sx={{ 
+          height: 550, 
+          width: '100%', 
+          borderRadius: 1,
+          boxShadow: theme.shadows[1],
+          overflow: 'hidden'
+        }}
+      >
         {loading ? (
           <Box display="flex" justifyContent="center" alignItems="center" height="100%">
             <CircularProgress />
@@ -506,20 +693,50 @@ const LoansList: React.FC = () => {
                 paginationModel: { pageSize, page },
               },
             }}
+            sx={{
+              border: 'none',
+              '& .MuiDataGrid-columnHeaders': {
+                bgcolor: alpha(theme.palette.primary.main, 0.03),
+                borderRadius: 0
+              },
+              '& .MuiDataGrid-cell': {
+                py: 1.5
+              },
+              '& .MuiDataGrid-columnHeaderTitle': {
+                fontWeight: 600
+              }
+            }}
           />
         )}
       </Paper>
       
       {/* Approve Dialog */}
-      <Dialog open={!!loanToApprove} onClose={() => !approvingLoan && setLoanToApprove(null)}>
-        <DialogTitle>Approve Loan</DialogTitle>
+      <Dialog 
+        open={!!loanToApprove} 
+        onClose={() => !approvingLoan && setLoanToApprove(null)}
+        PaperProps={{
+          sx: {
+            borderRadius: 1,
+            width: '100%',
+            maxWidth: 500
+          }
+        }}
+      >
+        <DialogTitle sx={{ pb: 1, fontWeight: 600 }}>Approve Loan</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Are you sure you want to approve loan {loanToApprove?.reference}? Once approved, the loan will be ready for disbursement.
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setLoanToApprove(null)} disabled={approvingLoan}>
+        <DialogActions sx={{ p: 2.5, pt: 1.5 }}>
+          <Button 
+            onClick={() => setLoanToApprove(null)} 
+            disabled={approvingLoan}
+            sx={{
+              textTransform: 'none',
+              fontWeight: 500
+            }}
+          >
             Cancel
           </Button>
           <Button 
@@ -527,17 +744,34 @@ const LoansList: React.FC = () => {
             color="success" 
             variant="contained"
             disabled={approvingLoan}
+            sx={{
+              borderRadius: 1,
+              textTransform: 'none',
+              fontWeight: 500,
+              boxShadow: 'none',
+              px: 3
+            }}
           >
-            {approvingLoan ? 'Approving...' : 'Approve'}
+            {approvingLoan ? <CircularProgress size={24} sx={{ color: '#fff' }} /> : 'Approve'}
           </Button>
         </DialogActions>
       </Dialog>
       
       {/* Reject Dialog */}
-      <Dialog open={!!loanToReject} onClose={() => !rejectingLoan && setLoanToReject(null)}>
-        <DialogTitle>Reject Loan</DialogTitle>
+      <Dialog 
+        open={!!loanToReject} 
+        onClose={() => !rejectingLoan && setLoanToReject(null)}
+        PaperProps={{
+          sx: {
+            borderRadius: 1,
+            width: '100%',
+            maxWidth: 500
+          }
+        }}  
+      >
+        <DialogTitle sx={{ pb: 1, fontWeight: 600 }}>Reject Loan</DialogTitle>
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText sx={{ mb: 2 }}>
             Please provide a reason for rejecting loan {loanToReject?.reference}.
           </DialogContentText>
           <TextField
@@ -552,10 +786,22 @@ const LoansList: React.FC = () => {
             value={rejectReason}
             onChange={(e) => setRejectReason(e.target.value)}
             disabled={rejectingLoan}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: 1
+              }
+            }}
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setLoanToReject(null)} disabled={rejectingLoan}>
+        <DialogActions sx={{ p: 2.5, pt: 1.5 }}>
+          <Button 
+            onClick={() => setLoanToReject(null)} 
+            disabled={rejectingLoan}
+            sx={{
+              textTransform: 'none',
+              fontWeight: 500
+            }}
+          >
             Cancel
           </Button>
           <Button 
@@ -563,23 +809,47 @@ const LoansList: React.FC = () => {
             color="error" 
             variant="contained"
             disabled={rejectingLoan || !rejectReason.trim()}
+            sx={{
+              borderRadius: 1,
+              textTransform: 'none',
+              fontWeight: 500,
+              boxShadow: 'none',
+              px: 3
+            }}
           >
-            {rejectingLoan ? 'Rejecting...' : 'Reject'}
+            {rejectingLoan ? <CircularProgress size={24} sx={{ color: '#fff' }} /> : 'Reject'}
           </Button>
         </DialogActions>
       </Dialog>
       
       {/* Disburse Dialog */}
-      <Dialog open={!!loanToDisburse} onClose={() => !disbursingLoan && setLoanToDisburse(null)}>
-        <DialogTitle>Disburse Loan</DialogTitle>
+      <Dialog 
+        open={!!loanToDisburse} 
+        onClose={() => !disbursingLoan && setLoanToDisburse(null)}
+        PaperProps={{
+          sx: {
+            borderRadius: 1,
+            width: '100%',
+            maxWidth: 500
+          }
+        }}
+      >
+        <DialogTitle sx={{ pb: 1, fontWeight: 600 }}>Disburse Loan</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Are you sure you want to disburse loan {loanToDisburse?.reference} for {formatCurrency(loanToDisburse?.amount || 0)}?
             This will transfer the funds to the member's account and initiate the repayment schedule.
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setLoanToDisburse(null)} disabled={disbursingLoan}>
+        <DialogActions sx={{ p: 2.5, pt: 1.5 }}>
+          <Button 
+            onClick={() => setLoanToDisburse(null)} 
+            disabled={disbursingLoan}
+            sx={{
+              textTransform: 'none',
+              fontWeight: 500
+            }}
+          >
             Cancel
           </Button>
           <Button 
@@ -587,8 +857,15 @@ const LoansList: React.FC = () => {
             color="primary" 
             variant="contained"
             disabled={disbursingLoan}
+            sx={{
+              borderRadius: 1,
+              textTransform: 'none',
+              fontWeight: 500,
+              boxShadow: 'none',
+              px: 3
+            }}
           >
-            {disbursingLoan ? 'Disbursing...' : 'Disburse'}
+            {disbursingLoan ? <CircularProgress size={24} sx={{ color: '#fff' }} /> : 'Disburse'}
           </Button>
         </DialogActions>
       </Dialog>
