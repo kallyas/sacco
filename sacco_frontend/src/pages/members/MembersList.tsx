@@ -19,12 +19,9 @@ import {
   ListItemText,
   Divider,
   Stack,
-  Badge,
   Avatar,
   useTheme,
   alpha,
-  Tab,
-  Tabs,
 } from "@mui/material";
 import {
   Search as SearchIcon,
@@ -32,30 +29,24 @@ import {
   Visibility as ViewIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
-  CheckCircle as VerifiedIcon,
-  Cancel as UnverifiedIcon,
-  FilterList as FilterIcon,
+  Groups as GroupsIcon,
+  Person as PersonIcon,
   MoreVert as MoreVertIcon,
-  Print as PrintIcon,
   FileDownload as ExportIcon,
   Refresh as RefreshIcon,
+  FilterList as FilterIcon,
   ArrowUpward as ArrowUpwardIcon,
   ArrowDownward as ArrowDownwardIcon,
-  Person as PersonIcon,
-  Groups as GroupsIcon,
-  History as HistoryIcon,
 } from "@mui/icons-material";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { membersApi } from "@/api/members.api";
 import { Member } from "@/types/member.types";
 
-// Helper function to generate initials from name
-const getInitials = (firstName: string, lastName: string) => {
-  return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
-};
+// Helper functions (moved outside component for clarity)
+const getInitials = (firstName: string, lastName: string) =>
+  `${firstName?.charAt(0) || ""}${lastName?.charAt(0) || ""}`.toUpperCase();
 
-// Helper function to generate a consistent color based on a string
 const stringToColor = (string: string) => {
   let hash = 0;
   for (let i = 0; i < string.length; i++) {
@@ -72,32 +63,29 @@ const stringToColor = (string: string) => {
 const MembersList: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+
+  // State variables
   const [members, setMembers] = useState<Member[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [page, setPage] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(10);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(
-    null
-  );
-  const [filterMenuAnchor, setFilterMenuAnchor] = useState<null | HTMLElement>(
-    null
-  );
-  const [actionsMenuAnchor, setActionsMenuAnchor] =
-    useState<null | HTMLElement>(null);
-  const [actionsMemberId, setActionsMemberId] = useState<number | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [sortField, setSortField] = useState<string>("registration_date");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
+  const [actionsMenuAnchor, setActionsMenuAnchor] = useState<null | HTMLElement>(null);
+  const [actionsMemberId, setActionsMemberId] = useState<number | null>(null);
+  const [filterMenuAnchor, setFilterMenuAnchor] = useState<null | HTMLElement>(null);
 
-  const fetchMembers = async (page: number = 0, search: string = "") => {
+  // API Fetching Function
+  const fetchMembers = async () => {
     setLoading(true);
     try {
       const response = await membersApi.getMembers({
-        page: page + 1, // API uses 1-indexed pages
-        search: search,
-        status: statusFilter !== "all" ? statusFilter : undefined,
+        page: page + 1,
+        search: searchQuery,
+        status: statusFilter === "all" ? undefined : statusFilter,
         ordering: `${sortDirection === "desc" ? "-" : ""}${sortField}`,
       });
       setMembers(response.results);
@@ -109,25 +97,15 @@ const MembersList: React.FC = () => {
     }
   };
 
+  // useEffect for initial data fetching and dependency management
   useEffect(() => {
-    fetchMembers(page, searchQuery);
-  }, [page, pageSize, statusFilter, sortField, sortDirection]);
+    fetchMembers();
+  }, [page, pageSize, searchQuery, statusFilter, sortField, sortDirection]); // Dependencies
 
+  // Event Handlers
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-
-    // Debounce search requests
-    if (searchTimeout) {
-      clearTimeout(searchTimeout);
-    }
-
-    const timeout = setTimeout(() => {
-      setPage(0); // Reset to first page on search
-      fetchMembers(0, query);
-    }, 500);
-
-    setSearchTimeout(timeout);
+    setSearchQuery(event.target.value);
+    setPage(0);  // Reset page to 0 on search
   };
 
   const handleFilterClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -140,19 +118,18 @@ const MembersList: React.FC = () => {
 
   const handleFilterChange = (filter: string) => {
     setStatusFilter(filter);
-    setFilterMenuAnchor(null);
-    setPage(0); // Reset to first page when changing filters
+    setPage(0);
+    handleFilterClose();
   };
 
   const handleSortChange = (field: string) => {
     if (sortField === field) {
-      // Toggle direction if clicking the same field
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
-      // New field, default to descending
       setSortField(field);
       setSortDirection("desc");
     }
+    setPage(0); // Reset page on sort change
   };
 
   const handleActionsClick = (
@@ -170,76 +147,53 @@ const MembersList: React.FC = () => {
   };
 
   const handleDeleteClick = (id: number) => {
-    // In a real app, show a confirmation dialog before deleting
+    // Implement delete logic here (e.g., show confirmation dialog)
     console.log(`Delete member with id: ${id}`);
     handleActionsClose();
   };
 
   const handleRefresh = () => {
-    fetchMembers(page, searchQuery);
+    fetchMembers();
   };
 
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageSize(newPageSize);
+    setPage(0);
+  };
+
+  // Columns Configuration
   const columns: GridColDef[] = [
-    {
-      field: "member_number",
-      headerName: "Member ID",
-      width: 150,
-      valueGetter: (params) => params.row.member_number,
-      renderCell: (params) => (
-        <Typography
-          variant="body2"
-          fontWeight={600}
-          sx={{ color: theme.palette.primary.main }}
-        >
-          {params.row.member_number}
-        </Typography>
-      ),
-    },
+    { field: "member_number", headerName: "Member ID", width: 120 },
     {
       field: "name",
       headerName: "Member",
-      width: 240,
+      width: 200,
       renderCell: (params: GridRenderCellParams) => {
-        const firstName = params.row.user.first_name;
-        const lastName = params.row.user.last_name;
+        const firstName = params.row.user?.first_name || "";
+        const lastName = params.row.user?.last_name || "";
         const fullName = `${firstName} ${lastName}`;
         const initials = getInitials(firstName, lastName);
         const avatarColor = stringToColor(fullName);
 
         return (
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-            <Avatar
-              sx={{
-                bgcolor: alpha(avatarColor, 0.8),
-                width: 40,
-                height: 40,
-                fontWeight: 600,
-              }}
-            >
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Avatar sx={{ bgcolor: avatarColor, width: 32, height: 32 }}>
               {initials}
             </Avatar>
-            <Box>
-              <Typography variant="body2" fontWeight={600}>
-                {fullName}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                {params.row.user.email}
-              </Typography>
-            </Box>
+            <Typography>{fullName}</Typography>
           </Box>
         );
       },
     },
-    {
-      field: "phone_number",
-      headerName: "Phone",
-      width: 150,
-      valueGetter: (params) => params.row.user.phone_number,
-    },
+    { field: "user.phone_number", headerName: "Phone", width: 120, valueGetter: (params) => params.row.user?.phone_number},
     {
       field: "registration_date",
       headerName: "Join Date",
-      width: 150,
+      width: 120,
       valueGetter: (params) => {
         const date = new Date(params.row.registration_date);
         return date.toLocaleDateString();
@@ -248,82 +202,25 @@ const MembersList: React.FC = () => {
     {
       field: "membership_status",
       headerName: "Status",
-      width: 130,
+      width: 120,
       renderCell: (params) => {
         const status = params.row.membership_status;
-        let color;
-        let backgroundColor;
-
+        let color = theme.palette.text.secondary;
         switch (status) {
           case "ACTIVE":
             color = theme.palette.success.main;
-            backgroundColor = alpha(theme.palette.success.main, 0.1);
             break;
           case "INACTIVE":
             color = theme.palette.error.main;
-            backgroundColor = alpha(theme.palette.error.main, 0.1);
             break;
           case "PENDING":
             color = theme.palette.warning.main;
-            backgroundColor = alpha(theme.palette.warning.main, 0.1);
             break;
           default:
-            color = theme.palette.info.main;
-            backgroundColor = alpha(theme.palette.info.main, 0.1);
+            break;
         }
-
-        return (
-          <Chip
-            label={status}
-            sx={{
-              backgroundColor: backgroundColor,
-              color: color,
-              fontWeight: 600,
-              borderRadius: "4px",
-              "& .MuiChip-label": {
-                padding: "0 8px",
-              },
-            }}
-            size="small"
-          />
-        );
+        return <Chip label={status} size="small" sx={{ color: color }} />;
       },
-    },
-    {
-      field: "is_verified",
-      headerName: "Verified",
-      width: 120,
-      renderCell: (params) => (
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          {params.row.is_verified ? (
-            <>
-              <VerifiedIcon
-                sx={{
-                  color: theme.palette.success.main,
-                  mr: 0.5,
-                  fontSize: 18,
-                }}
-              />
-              <Typography variant="body2" color="success.main" fontWeight={500}>
-                Verified
-              </Typography>
-            </>
-          ) : (
-            <>
-              <UnverifiedIcon
-                sx={{
-                  color: theme.palette.warning.main,
-                  mr: 0.5,
-                  fontSize: 18,
-                }}
-              />
-              <Typography variant="body2" color="warning.main" fontWeight={500}>
-                Pending
-              </Typography>
-            </>
-          )}
-        </Box>
-      ),
     },
     {
       field: "actions",
@@ -331,39 +228,25 @@ const MembersList: React.FC = () => {
       width: 100,
       sortable: false,
       renderCell: (params) => (
-        <Box>
-          <Tooltip title="More Actions">
-            <IconButton
-              onClick={(event) => handleActionsClick(event, params.row.id)}
-              size="small"
-            >
-              <MoreVertIcon />
-            </IconButton>
-          </Tooltip>
-        </Box>
+        <Tooltip title="More Actions">
+          <IconButton
+            onClick={(event) => handleActionsClick(event, params.row.id)}
+            size="small"
+          >
+            <MoreVertIcon />
+          </IconButton>
+        </Tooltip>
       ),
     },
   ];
 
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handlePageSizeChange = (newPageSize: number) => {
-    setPageSize(newPageSize);
-    setPage(0); // Reset to first page when changing page size
-  };
-
-  // Get summary stats for different member categories
   const activeMembersCount = members.filter(
     (m) => m.membership_status === "ACTIVE"
   ).length;
-  const unverifiedMembersCount = members.filter((m) => !m.is_verified).length;
   const inactiveMembersCount = members.filter(
     (m) => m.membership_status === "INACTIVE"
   ).length;
 
-  // Member statistics cards
   const memberStats = [
     {
       title: "Total Members",
@@ -386,13 +269,6 @@ const MembersList: React.FC = () => {
       color: theme.palette.error.main,
       bgColor: alpha(theme.palette.error.main, 0.1),
     },
-    {
-      title: "Unverified Members",
-      value: unverifiedMembersCount,
-      icon: <HistoryIcon />,
-      color: theme.palette.warning.main,
-      bgColor: alpha(theme.palette.warning.main, 0.1),
-    },
   ];
 
   return (
@@ -400,10 +276,10 @@ const MembersList: React.FC = () => {
       {/* Header Section */}
       <Grid container spacing={3} alignItems="center" sx={{ mb: 3 }}>
         <Grid item xs={12} md={6}>
-          <Typography variant="h4" fontWeight={700} color="primary.main">
+          <Typography variant="h5" fontWeight={700} color="primary.main">
             Members Management
           </Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ mt: 0.5 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
             View, manage and monitor all SACCO members
           </Typography>
         </Grid>
@@ -425,12 +301,6 @@ const MembersList: React.FC = () => {
               variant="contained"
               startIcon={<AddIcon />}
               onClick={() => navigate("/members/add")}
-              sx={{
-                px: 3,
-                background:
-                  theme.customGradients?.primary ||
-                  "linear-gradient(135deg, #1e5631 0%, #2a724a 100%)",
-              }}
             >
               Add Member
             </Button>
@@ -438,8 +308,8 @@ const MembersList: React.FC = () => {
         </Grid>
       </Grid>
 
-      {/* Statistics Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+       {/* Statistics Cards */}
+       <Grid container spacing={3} sx={{ mb: 4 }}>
         {memberStats.map((stat, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card
@@ -492,141 +362,118 @@ const MembersList: React.FC = () => {
         ))}
       </Grid>
 
-      {/* Tabs for different member views */}
-      <Paper sx={{ borderRadius: 3, overflow: "hidden", mb: 3 }}>
-        <Tabs
-          value={statusFilter}
-          onChange={(_, value) => handleFilterChange(value)}
-          indicatorColor="primary"
-          sx={{
-            borderBottom: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
-            "& .MuiTab-root": {
-              py: 2,
-              fontWeight: 600,
-            },
-          }}
-        >
-          <Tab label="All Members" value="all" />
-          <Tab
-            label={
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                Active
-                <Chip
-                  label={activeMembersCount}
-                  size="small"
-                  sx={{
-                    ml: 1,
-                    bgcolor: alpha(theme.palette.success.main, 0.1),
-                    color: "success.main",
-                  }}
-                />
-              </Box>
-            }
-            value="ACTIVE"
-          />
-          <Tab
-            label={
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                Inactive
-                <Chip
-                  label={inactiveMembersCount}
-                  size="small"
-                  sx={{
-                    ml: 1,
-                    bgcolor: alpha(theme.palette.error.main, 0.1),
-                    color: "error.main",
-                  }}
-                />
-              </Box>
-            }
-            value="INACTIVE"
-          />
-          <Tab
-            label={
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                Unverified
-                <Chip
-                  label={unverifiedMembersCount}
-                  size="small"
-                  sx={{
-                    ml: 1,
-                    bgcolor: alpha(theme.palette.warning.main, 0.1),
-                    color: "warning.main",
-                  }}
-                />
-              </Box>
-            }
-            value="unverified"
-          />
-        </Tabs>
-      </Paper>
-
-      {/* Search & Action Bar */}
-      <Box
-        sx={{
-          display: "flex",
-          mb: 3,
-          flexDirection: { xs: "column", md: "row" },
-          gap: 2,
-        }}
+      {/* Search and Filter Bar */}
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={2}
+        sx={{ mb: 2 }}
       >
         <TextField
           fullWidth
-          placeholder="Search by name, member number, phone or ID"
+          label="Search Members"
           variant="outlined"
           value={searchQuery}
           onChange={handleSearch}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon color="action" />
+                <SearchIcon />
               </InputAdornment>
             ),
-            sx: {
-              borderRadius: 2,
-              bgcolor: "background.paper",
-              "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: alpha(theme.palette.divider, 0.6),
-              },
-            },
           }}
-          sx={{ flexGrow: 1 }}
         />
 
-        <Stack direction="row" spacing={1} sx={{ flexShrink: 0 }}>
+        <Stack direction="row" spacing={1}>
           <Button
             variant="outlined"
             startIcon={<FilterIcon />}
             onClick={handleFilterClick}
-            sx={{ borderRadius: 2, whiteSpace: "nowrap" }}
           >
-            Filters
+            Filter
           </Button>
-          <IconButton
-            onClick={handleRefresh}
-            sx={{
-              border: `1px solid ${alpha(theme.palette.divider, 0.6)}`,
-              borderRadius: 2,
-            }}
-          >
+          <IconButton onClick={handleRefresh}>
             <RefreshIcon />
           </IconButton>
         </Stack>
+      </Stack>
 
-        {/* Filter Menu */}
-        <Menu
-          anchorEl={filterMenuAnchor}
-          open={Boolean(filterMenuAnchor)}
-          onClose={handleFilterClose}
-          sx={{
-            "& .MuiPaper-root": {
-              borderRadius: 2,
-              minWidth: 200,
-              boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)",
-            },
+      {/* Data Grid */}
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        {loading ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height={400}
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          <DataGrid
+            rows={members}
+            columns={columns}
+            rowCount={totalCount}
+            loading={loading}
+            paginationMode="server"
+            paginationModel={{ page, pageSize }}
+            onPaginationModelChange={(newModel) => {
+              setPage(newModel.page);
+              setPageSize(newModel.pageSize);
+            }}
+            pageSizeOptions={[5, 10, 20]}
+            disableRowSelectionOnClick
+            disableColumnMenu
+            sx={{ border: 0 }}
+          />
+        )}
+      </Paper>
+
+      {/* Action Menu */}
+      <Menu
+        anchorEl={actionsMenuAnchor}
+        open={Boolean(actionsMenuAnchor)}
+        onClose={handleActionsClose}
+      >
+        <MenuItem
+          onClick={() => {
+            if (actionsMemberId) navigate(`/members/${actionsMemberId}`);
+            handleActionsClose();
           }}
         >
-          <MenuItem onClick={() => handleSortChange("registration_date")}>
+          <ListItemIcon>
+            <ViewIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>View</ListItemText>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            if (actionsMemberId) navigate(`/members/${actionsMemberId}/edit`);
+            handleActionsClose();
+          }}
+        >
+          <ListItemIcon>
+            <EditIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Edit</ListItemText>
+        </MenuItem>
+        <Divider />
+        <MenuItem
+          onClick={() => actionsMemberId && handleDeleteClick(actionsMemberId)}
+        >
+          <ListItemIcon>
+            <DeleteIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText sx={{ color: "error.main" }}>Delete</ListItemText>
+        </MenuItem>
+      </Menu>
+
+      {/* Filter Menu */}
+      <Menu
+        anchorEl={filterMenuAnchor}
+        open={Boolean(filterMenuAnchor)}
+        onClose={handleFilterClose}
+      >
+         <MenuItem onClick={() => handleSortChange("registration_date")}>
             <ListItemIcon>
               {sortField === "registration_date" &&
                 (sortDirection === "desc" ? (
@@ -660,126 +507,17 @@ const MembersList: React.FC = () => {
             <ListItemText>Sort by Member ID</ListItemText>
           </MenuItem>
           <Divider />
-          <MenuItem onClick={() => handleFilterChange("all")}>
-            <ListItemText>All Members</ListItemText>
-          </MenuItem>
-          <MenuItem onClick={() => handleFilterChange("ACTIVE")}>
-            <ListItemText>Active Only</ListItemText>
-          </MenuItem>
-          <MenuItem onClick={() => handleFilterChange("INACTIVE")}>
-            <ListItemText>Inactive Only</ListItemText>
-          </MenuItem>
-          <MenuItem onClick={() => handleFilterChange("unverified")}>
-            <ListItemText>Unverified Only</ListItemText>
-          </MenuItem>
-        </Menu>
-      </Box>
-
-      {/* Members Table */}
-      <Paper
-        sx={{
-          height: 600,
-          width: "100%",
-          borderRadius: 3,
-          overflow: "hidden",
-          border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell:focus": {
-            outline: "none",
-          },
-          "& .MuiDataGrid-columnHeader": {
-            backgroundColor: alpha(theme.palette.primary.main, 0.04),
-            paddingTop: 2,
-            paddingBottom: 2,
-          },
-          "& .MuiDataGrid-columnHeaderTitle": {
-            fontWeight: 600,
-          },
-          "& .MuiDataGrid-row:hover": {
-            backgroundColor: alpha(theme.palette.primary.main, 0.02),
-          },
-        }}
-      >
-        {loading ? (
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            height="100%"
-          >
-            <CircularProgress />
-          </Box>
-        ) : (
-          <DataGrid
-            rows={members}
-            columns={columns}
-            pageSizeOptions={[10, 25, 50, 100]}
-            paginationModel={{ pageSize, page }}
-            paginationMode="server"
-            onPaginationModelChange={({ page, pageSize }) => {
-              setPage(page);
-              setPageSize(pageSize);
-            }}
-            rowCount={totalCount}
-            disableRowSelectionOnClick
-            disableColumnMenu
-            getRowClassName={(params) =>
-              params.indexRelativeToCurrentPage % 2 === 0 ? "" : "even-row"
-            }
-            sx={{
-              "& .even-row": {
-                backgroundColor: alpha(theme.palette.primary.main, 0.02),
-              },
-            }}
-          />
-        )}
-      </Paper>
-
-      {/* Actions Menu */}
-      <Menu
-        anchorEl={actionsMenuAnchor}
-        open={Boolean(actionsMenuAnchor)}
-        onClose={handleActionsClose}
-        sx={{
-          "& .MuiPaper-root": {
-            borderRadius: 2,
-            minWidth: 180,
-            boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)",
-          },
-        }}
-      >
-        <MenuItem
-          onClick={() => {
-            if (actionsMemberId) navigate(`/members/${actionsMemberId}`);
-            handleActionsClose();
-          }}
-        >
-          <ListItemIcon>
-            <ViewIcon fontSize="small" color="primary" />
-          </ListItemIcon>
-          <ListItemText>View Details</ListItemText>
+        <MenuItem onClick={() => handleFilterChange("all")}>
+          <ListItemText>All</ListItemText>
         </MenuItem>
-        <MenuItem
-          onClick={() => {
-            if (actionsMemberId) navigate(`/members/${actionsMemberId}/edit`);
-            handleActionsClose();
-          }}
-        >
-          <ListItemIcon>
-            <EditIcon fontSize="small" color="primary" />
-          </ListItemIcon>
-          <ListItemText>Edit Member</ListItemText>
+        <MenuItem onClick={() => handleFilterChange("ACTIVE")}>
+          <ListItemText>Active</ListItemText>
         </MenuItem>
-        <Divider />
-        <MenuItem
-          onClick={() => actionsMemberId && handleDeleteClick(actionsMemberId)}
-        >
-          <ListItemIcon>
-            <DeleteIcon fontSize="small" color="error" />
-          </ListItemIcon>
-          <ListItemText sx={{ color: "error.main" }}>Delete</ListItemText>
+        <MenuItem onClick={() => handleFilterChange("INACTIVE")}>
+          <ListItemText>Inactive</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={() => handleFilterChange("PENDING")}>
+          <ListItemText>Pending</ListItemText>
         </MenuItem>
       </Menu>
     </Box>
