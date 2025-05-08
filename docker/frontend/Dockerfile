@@ -35,7 +35,7 @@ COPY sacco_frontend/yarn.lock ./
 RUN yarn install --production
 
 # Copy built app from the build stage
-COPY --from=build /app/build ./build
+COPY --from=build /app/dist ./build
 COPY --from=build /app/node_modules ./node_modules
 
 # Expose the port the app runs on
